@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import '../../styles/navbar.css';
 
+import Image from 'next/image';
+
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -29,14 +31,14 @@ const Navbar = () => {
         {/* Left Logo */}
         <div className="navbar-left">
           <Link href="/">
-            <img src="/SustainAura.png" alt="Logo" className="logo" />
+            <Image src="/SustainAura.png" alt="Logo" className="logo" width={200} height={50} priority />
           </Link>
         </div>
 
         {/* Center Image */}
         <div className="navbar-center-image">
           <Link href="/">
-            <img src="/finalsustain.png" alt="Middle" className="middle-image" />
+            <Image src="/finalsustain.png" alt="Middle" className="middle-image" width={100} height={100} priority />
           </Link>
 
         </div>

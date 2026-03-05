@@ -1,4 +1,5 @@
 import './globals.css';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -36,6 +37,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preload" href="/finalhero.webp" as="image" />
+      </head>
       <body suppressHydrationWarning>
         <div className="App" suppressHydrationWarning>
           <ScrollToTop />
@@ -46,6 +50,7 @@ export default function RootLayout({ children }) {
 
           <Footer />
         </div>
+        {process.env.NEXT_PUBLIC_GA_ID && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />}
       </body>
     </html>
   );

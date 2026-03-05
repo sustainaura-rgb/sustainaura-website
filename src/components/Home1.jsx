@@ -1,15 +1,15 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import '../styles/Home1.css';
+import Image from 'next/image';
 import { useRouter } from "next/navigation";
 
 function FourGButton({ handleFourGClick }) {
   // Array of image sources (3 images)
   const images = [
-    "/4G-Frosty.jpg",
-
-    "/8G-Clear.jpg",
-    "/6G-Solid-White.jpg",
+    "/4G-Frosty.webp",
+    "/8G-Clear.webp",
+    "/6G-Solid-White.webp",
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -30,10 +30,13 @@ function FourGButton({ handleFourGClick }) {
       aria-label="Explore our 4G product"
       type="button"
     >
-      <img
+      <Image
         src={images[currentIndex]}
         alt="4G Clear Lightweight PEVA Liner"
         className="sa-product-card-img"
+        width={300}
+        height={400}
+        priority={true}
       />
       <div className="sa-product-card-info1">
         <p className="sa-product-card-tag">Click to view details</p>
@@ -53,7 +56,7 @@ function Home1() {
     router.push("/shop"); // same window, client-side route change
   };
 
-  const backgroundImage = 'url("/finalhero.png")';
+  const backgroundImage = 'url("/finalhero.webp")';
 
   return (
     <div className="hero-wrapper">

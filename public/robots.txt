@@ -10,3 +10,5 @@ Allow: /
 
 User-agent: WhatsApp
 Allow: /
+
+Sitemap: https://sustainaura.eco/sitemap.xml

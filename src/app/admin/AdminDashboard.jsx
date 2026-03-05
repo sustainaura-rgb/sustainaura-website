@@ -5,7 +5,8 @@ export default function AdminDashboard({ token }) {
   const [contacts, setContacts] = useState([]);
 
   useEffect(() => {
-    fetch("https://mern-backend-py4u.onrender.com/admin/contacts", {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://mern-backend-py4u.onrender.com";
+    fetch(`${API_URL}/admin/contacts`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

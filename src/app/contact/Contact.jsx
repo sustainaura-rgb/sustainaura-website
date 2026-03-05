@@ -128,7 +128,8 @@ export default function Contact() {
 
     setIsLoading(true);
     try {
-      const res = await fetch(`https://mern-backend-py4u.onrender.com/submit-form`, {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://mern-backend-py4u.onrender.com";
+      const res = await fetch(`${API_URL}/submit-form`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData)

@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@next/third-parties": "^16.1.6",
+    "@sentry/nextjs": "^10.42.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
@@ -30,10 +32,10 @@
   },
   "scripts": {
     "dev": "next dev",
-  "build": "next build",
-  "start": "next start",
-  "lint": "next lint",
-  "export": "next export"
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "export": "next export"
   },
   "eslintConfig": {
     "extends": [
@@ -52,5 +54,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "sharp": "^0.34.5"
   }
 }

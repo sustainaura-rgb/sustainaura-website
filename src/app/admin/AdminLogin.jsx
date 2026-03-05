@@ -7,7 +7,8 @@ export default function AdminLogin({ setToken }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch("https://mern-backend-py4u.onrender.com/admin/login", {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://mern-backend-py4u.onrender.com";
+    const res = await fetch(`${API_URL}/admin/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password })

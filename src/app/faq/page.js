@@ -11,13 +11,13 @@ const faqData = {
             answer: "Our mission is to eliminate single-use PVC plastics from bathrooms worldwide. We are dedicated to providing high-quality, non-toxic, and eco-friendly shower liners that protect both your health and the planet, proving that sustainability doesn't mean compromising on durability or style."
         },
         {
-            question: "How are SustainAura's products better for the planet?",
+            question: "How are SustainAura's product better for the planet?",
             answer: "Unlike traditional PVC liners that release harmful lux and VOCs, our PEVA liners are chlorine-free, phthalate-free, and odorless. We prioritize materials that are safer to produce and easier to recycle, significantly reducing the environmental footprint of your daily routine."
         },
         {
             question: "Where are your products made?",
             answer: "We ethically source our materials and partner with certified manufacturers who adhere to strict environmental and fair labor standards. Our design team is based locally, ensuring every product meets our high specifications for quality and sustainability."
-        } 
+        }
     ],
     "USE & CARE": [
         {
@@ -156,7 +156,7 @@ const FAQ = () => {
                                 {activeTab === "CONTACT US" && "Get in touch with our team"}
                             </p>
                         </div>
-                        
+
                         <div className="faq-list">
                             {faqData[activeTab].map((faq, index) => (
                                 <motion.div
@@ -197,7 +197,7 @@ const FAQ = () => {
                                 </motion.div>
                             ))}
                         </div>
-                        
+
                         {/* <div className="faq-footer">
                             <div className="need-help">
                                 <FaQuestionCircle className="help-icon" />
