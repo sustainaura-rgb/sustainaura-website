@@ -1,0 +1,98 @@
+/* AdminDashboard.css */
+
+.admin-dashboard {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.admin-dashboard h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #1a73e8;
+}
+
+.admin-dashboard table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.admin-dashboard th,
+.admin-dashboard td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.admin-dashboard thead {
+  background-color: #1a73e8;
+  color: #fff;
+}
+
+.admin-dashboard tbody tr {
+  border-bottom: 1px solid #ddd;
+  transition: background 0.3s;
+}
+
+.admin-dashboard tbody tr:hover {
+  background-color: #f1f7ff;
+}
+
+.admin-dashboard button {
+  padding: 6px 12px;
+  background-color: #1a73e8;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.admin-dashboard button:hover {
+  background-color: #155ab6;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .admin-dashboard table,
+  .admin-dashboard thead,
+  .admin-dashboard tbody,
+  .admin-dashboard th,
+  .admin-dashboard td,
+  .admin-dashboard tr {
+    display: block;
+  }
+
+  .admin-dashboard thead tr {
+    display: none;
+  }
+
+  .admin-dashboard tbody tr {
+    margin-bottom: 15px;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  }
+
+  .admin-dashboard tbody td {
+    padding: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .admin-dashboard tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #555;
+  }
+}

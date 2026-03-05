@@ -1,0 +1,170 @@
+.real-life-section {
+    padding: 60px 20px;
+    background: transparent;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+}
+
+.real-life-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.real-life-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.premium-label {
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    color: var(--sa-blue-main);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.real-life-title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--sa-green-dark);
+    margin: 0 0 16px 0;
+}
+
+.real-life-subtitle {
+    font-size: 1.1rem;
+    color: #64748b;
+    max-width: 600px;
+    margin: 0 auto;
+    font-weight: 400;
+}
+
+/* ==================================
+   Elastic Gallery Styles
+   ================================== */
+.elastic-gallery {
+    display: flex;
+    gap: 20px;
+    height: 450px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.elastic-card {
+    position: relative;
+    height: 100%;
+    border-radius: 40px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    flex: 1;
+    /* Default width (collapsed) */
+    transition: flex 0.7s cubic-bezier(0.25, 1, 0.5, 1), transform 0.3s ease;
+    overflow: hidden;
+    /* Clean shadow */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.elastic-card.active {
+    flex: 5;
+    /* Active width (expanded) */
+}
+
+/* Overlay Mechanics */
+.card-glass-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    /* Gradient fade for readability */
+    /* Gradient fade for readability */
+    background: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease 0.1s;
+    /* Slight delay to wait for panel expansion */
+}
+
+.elastic-card.active .card-glass-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Typography Inside Card */
+.card-info {
+    color: white;
+}
+
+.card-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    line-height: 1.1;
+}
+
+.card-desc {
+    font-size: 1rem;
+    margin: 0;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+/* Plus/Minus Icon */
+.card-icon-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 300;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: background 0.3s ease;
+}
+
+.elastic-card:hover .card-icon-circle {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Mobile Responsive */
+@media (max-width: 900px) {
+    .elastic-gallery {
+        flex-direction: column;
+        /* Stack vertically for easy tapping */
+        height: 550px;
+    }
+
+    .elastic-card {
+        width: 100%;
+        flex: 1;
+    }
+
+    .elastic-card.active {
+        flex: 3;
+        /* Less growth needed vertically */
+    }
+
+    .real-life-title {
+        font-size: 2.2rem;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+    }
+
+    .real-life-section {
+        padding: 50px 20px;
+        /* Reduce padding on mobile */
+    }
+}

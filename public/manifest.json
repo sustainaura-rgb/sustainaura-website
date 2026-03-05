@@ -1,0 +1,15 @@
+{
+  "short_name": "SustainAura",
+  "name": "SustainAura - Eco-Friendly Shower Liners",
+  "icons": [
+    {
+      "src": "SustainAura.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

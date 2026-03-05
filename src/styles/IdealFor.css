@@ -1,0 +1,253 @@
+/* IdealFor.css - Using the three colors separately */
+
+:root {
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 0.75rem;
+  --spacing-lg: 1rem;
+  --spacing-xl: 1.5rem;
+  --spacing-2xl: 2rem;
+  --spacing-3xl: 3rem;
+  --spacing-4xl: 4rem;
+  
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --radius-full: 9999px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 12px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 12px 16px -4px rgba(0, 0, 0, 0.1);
+  
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Typography */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.75rem;
+  --font-size-4xl: 2rem;
+  
+  /* Layout */
+  --container-max: 1200px;
+  --section-padding: 3rem 1.5rem;
+  --section-padding-md: 2.5rem 1.5rem;
+  --section-padding-sm: 2rem 1rem;
+}
+
+/* Container */
+.ideal-for-section .container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Ideal For Section */
+.ideal-for-section {
+  padding: var(--spacing-3xl) 0;
+  background: #ffffff;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.ideal-for-section::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: #4A90C7; /* Dark Blue */
+}
+
+/* Section Header - MORE SPECIFIC SELECTORS */
+.ideal-for-section .section-header {
+  text-align: center;
+  margin-bottom: var(--spacing-3xl);
+}
+
+.ideal-for-section .section-header h2 {
+  font-size: var(--font-size-4xl);
+  font-weight: 600;
+  color: #4CAF50 !important; /* FORCE GREEN COLOR with !important */
+  margin-bottom: var(--spacing-lg);
+  position: relative;
+  padding-bottom: var(--spacing-lg);
+}
+
+.ideal-for-section .section-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: #8BC34A; /* Lime Green - Underline in lime green */
+  border-radius: var(--radius-full);
+}
+
+.ideal-for-section .section-subtitle {
+  display: inline-block;
+  padding: var(--spacing-md) var(--spacing-2xl);
+  background: #f9fafb;
+  color: #4A90C7; /* Dark Blue - Subtitle text in blue */
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  box-shadow: var(--shadow-md);
+  border: 1px solid #e5e7eb;
+  transition: all var(--transition-normal);
+}
+
+.ideal-for-section .section-subtitle:hover {
+  background: #4CAF50; /* Leaf Green - Background changes to green on hover */
+  color: #ffffff; /* White text on hover */
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: #4CAF50; /* Leaf Green border on hover */
+}
+
+/* Grid */
+.ideal-for-section .ideal-for-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-xl);
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .ideal-for-section .ideal-for-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .ideal-for-section .ideal-for-grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+    gap: var(--spacing-lg);
+  }
+}
+
+/* Card */
+.ideal-for-section .ideal-for-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-2xl);
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ideal-for-section .ideal-for-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+  border-color: #4CAF50; /* Leaf Green border on hover */
+}
+
+.ideal-for-section .ideal-for-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: #4A90C7; /* Dark Blue - Top border */
+  transform: scaleX(0);
+  transition: transform var(--transition-smooth);
+}
+
+.ideal-for-section .ideal-for-card:hover::before {
+  transform: scaleX(1);
+}
+
+/* Image */
+.ideal-for-section .ideal-for-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.ideal-for-section .ideal-for-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-smooth);
+}
+
+.ideal-for-section .ideal-for-card:hover .ideal-for-image img {
+  transform: scale(1.05);
+}
+
+/* Content */
+.ideal-for-section .ideal-for-content {
+  padding: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex: 1;
+}
+
+.ideal-for-section .ideal-for-card h3 {
+  font-size: var(--font-size-base);
+  font-weight: 800;
+  color: #4A90C7; /* Dark Blue - Card titles in blue */
+  margin-bottom: var(--spacing-xs);
+  position: relative;
+  padding-bottom: var(--spacing-sm);
+}
+
+.ideal-for-section .ideal-for-card h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 2px;
+  background: #8BC34A; /* Lime Green - Card title underline in green */
+  border-radius: var(--radius-full);
+}
+
+.ideal-for-section .ideal-for-card p {
+  font-size: var(--font-size-sm);
+  color: #374151;
+  line-height: 1.5;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .ideal-for-section .ideal-for-card,
+  .ideal-for-section .ideal-for-image img {
+    transition: none;
+  }
+
+  .ideal-for-section .ideal-for-card:hover {
+    transform: none;
+  }
+
+  .ideal-for-section .ideal-for-card:hover .ideal-for-image img {
+    transform: none;
+  }
+}

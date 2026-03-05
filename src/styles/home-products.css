@@ -1,0 +1,151 @@
+/* home-products.css - EcoSoul Style Carousel (Green Cards on White) */
+
+.best-sellers-section {
+    padding: 80px 40px;
+    background-color: #ffffff;
+    /* Page Background */
+    position: relative;
+}
+
+.section-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Header Styling */
+.best-sellers-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title span {
+    /* Keep existing gradient or standard color */
+}
+
+.carousel-wrapper {
+    position: relative;
+    padding: 0 60px;
+    /* Space for arrows */
+}
+
+.best-sellers-swiper {
+    padding-bottom: 40px !important;
+    overflow: visible !important;
+}
+
+.swiper-slide {
+    height: auto;
+    display: flex;
+}
+
+/* Card Styling */
+.best-seller-card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+}
+
+/* GREEN SQUARE IMAGE CONTAINER - Renamed from .product-image-container to avoid conflict */
+.bs-image-container {
+    width: 100%;
+    aspect-ratio: 1;
+    background-color: #014d40;
+    /* EcoSoul Dark Green */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    transition: transform 0.3s ease;
+    /* border-radius: 4px; Optional: slight rounding if desired, ref looked sharp/minimal */
+}
+
+.best-seller-card:hover .bs-image-container {
+    transform: translateY(-5px);
+}
+
+.best-seller-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+    /* Strong shadow to pop off green */
+}
+
+/* GREEN PILL BUTTON */
+.view-product-btn {
+    width: 100%;
+    background-color: #014d40;
+    /* Match Image Container Green */
+    color: white;
+    border: none;
+    border-radius: 50px;
+    /* Pill shape */
+    padding: 14px 24px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.view-product-btn:hover {
+    background-color: #016352;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Navigation Arrows */
+.nav-btn {
+    position: absolute;
+    top: 40%;
+    /* Align roughly with image container center */
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    background-color: #014d40;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    /* Rounded square */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: #016352;
+}
+
+.prev-btn {
+    left: 0;
+}
+
+.next-btn {
+    right: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .carousel-wrapper {
+        padding: 0;
+    }
+
+    .nav-btn {
+        display: none;
+        /* Swipe only on mobile */
+    }
+
+    .best-sellers-section {
+        padding: 40px 20px;
+    }
+}

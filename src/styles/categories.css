@@ -1,0 +1,292 @@
+/* categories.css */
+
+/* =========================================
+   SECTION & LAYOUT
+   ========================================= */
+.best-sellers-section {
+  /* padding: clamp(60px, 8vw, 120px) clamp(16px, 4vw, 60px); */
+
+  background-color: #ffffff;
+  position: relative;
+}
+
+.section-container {
+  width: 100%;
+  max-width: none; /* REMOVE max-width */
+  margin: 0;
+  padding: 0 20px; /* Optional small inner spacing */
+}
+
+
+
+/* Header Styling */
+.best-sellers-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.carousel-wrapper {
+  position: relative;
+  padding: 0; /* Remove side gaps */
+  overflow: hidden;
+}
+
+
+
+.best-sellers-swiper {
+  padding-bottom: 40px !important;
+  overflow: visible !important;
+}
+
+.swiper-slide {
+  height: auto;
+  display: flex;
+}
+
+/* =========================================
+   PRODUCT CARD STYLING
+   ========================================= */
+.best-seller-card {
+  width: 100%;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 20px !important;
+  cursor: default !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* GREEN SQUARE IMAGE CONTAINER */
+.bs-image-container {
+  width: 100% !important;
+  aspect-ratio: 1 / 1 !important;
+  background-color: #014d40 !important; /* EcoSoul Dark Green */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  box-shadow: none !important;
+}
+
+.bs-image-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(1, 77, 64, 0.2) !important;
+}
+
+.best-seller-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+}
+
+/* =========================================
+   PRODUCT BUTTON (Green Theme + Arrow)
+   ========================================= */
+.view-product-btn {
+  width: 100%;
+  background: white !important;
+  color: #7bc346 !important; 
+  border: 2px solid #7bc346 !important; 
+  border-radius: 50px !important;
+  padding: 10px 20px !important; 
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  cursor: pointer;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px; 
+  
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  text-transform: none !important;
+  transition: all 0.3s ease-in-out;
+  white-space: nowrap; /* Prevents text breaking on small screens */
+}
+
+/* The inner circle arrow */
+.view-product-btn .btn-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  /* Prevent circle from squishing */
+  min-width: 28px; 
+  border-radius: 50%;
+  background-color: white;
+  color:#7bc346;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hover State */
+.view-product-btn:hover {
+  background-color: #7bc346 !important; 
+  color: white !important;
+  border-color: #7bc346 !important;
+  transform: translateY(-3px); 
+  box-shadow: 0 6px 15px rgba(123, 195, 70, 0.3); 
+}
+
+.view-product-btn:hover .btn-arrow {
+  background-color: white;
+  color: #7bc346;
+  transform: translateX(4px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* =========================================
+   NAVIGATION ARROWS (Blue Theme)
+   ========================================= */
+.nav-btn {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  background-color: white; 
+  color: #56a0e9; 
+  border-radius: 50%; 
+  border: 1px solid #eee; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+  transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+  background-color: #56a0e9; 
+  color: white; 
+  border-color: #56a0e9;
+  transform: translateY(-50%) scale(1.1); 
+  box-shadow: 0 6px 15px rgba(86, 160, 233, 0.4); 
+}
+
+.prev-btn { left: 0; }
+.next-btn { right: 0; }
+
+/* =========================================
+   RESPONSIVE MEDIA QUERIES
+   ========================================= */
+
+/* Tablet (1024px and below) */
+@media (max-width: 1024px) {
+  .best-sellers-section {
+    padding: 60px 20px;
+  }
+  
+  .carousel-wrapper {
+    /* Reduce side padding as arrows might overlap slightly or sit tighter */
+    padding: 0 50px; 
+  }
+
+  .nav-btn {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Mobile (768px and below) */
+@media (max-width: 768px) {
+  .best-sellers-section {
+    padding: 40px 16px; /* Tighter padding for mobile */
+  }
+
+  .best-sellers-header {
+    margin-bottom: 30px;
+  }
+
+  .carousel-wrapper {
+    /* Remove side padding on mobile to maximize card width */
+    padding: 0; 
+  }
+
+  /* Hide arrows on mobile (standard UX is swipe) */
+  .nav-btn {
+    display: none; 
+  }
+
+  /* Adjust Button Size */
+  .view-product-btn {
+    padding: 10px 16px !important;
+    font-size: 0.9rem !important;
+    gap: 8px;
+  }
+
+  .view-product-btn .btn-arrow {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    font-size: 0.8rem;
+  }
+  
+  /* Make sure image container isn't too huge on single slide view */
+  .bs-image-container {
+     /* Ensures it doesn't overflow if user has very small screen */
+     max-width: 100%; 
+  }
+}
+
+/* Small Mobile (480px and below) */
+@media (max-width: 480px) {
+  .best-sellers-section {
+    padding: 30px 12px;
+  }
+  
+  .best-seller-card {
+    gap: 15px !important;
+  }
+  
+  .view-product-btn {
+    /* Even tighter padding for very small screens */
+    padding: 8px 12px !important; 
+    font-size: 0.85rem !important;
+  }
+}/* ===============================
+   LARGE DESKTOP / 2K / 4K
+   =============================== */
+@media (min-width: 1400px) {
+
+  .best-seller-card {
+    gap: 28px !important;
+  }
+
+  .view-product-btn {
+    font-size: 1.1rem !important;
+    padding: 14px 26px !important;
+  }
+
+  .bs-image-container {
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .best-sellers-header {
+    margin-bottom: 70px;
+  }
+  .nav-btn {
+    width: 56px;
+    height: 56px;
+    font-size: 1.3rem;
+  }
+}
+@media (min-width: 1800px) {
+
+  .section-container {
+    max-width: 1800px;
+  }
+}
+.nav-btn:focus-visible {
+  outline: 3px solid #56a0e9;
+  outline-offset: 3px;
+}

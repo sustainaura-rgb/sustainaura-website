@@ -1,0 +1,240 @@
+.maintenance-section {
+    padding: 100px 20px;
+    background: transparent;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.maintenance-content {
+    display: flex;
+    flex-direction: row;
+    max-width: 1300px;
+    width: 100%;
+    gap: 80px;
+    align-items: center;
+}
+
+.maintenance-left {
+    flex: 1.2;
+}
+
+.maintenance-right {
+    flex: 1;
+    position: relative;
+    /* Adjust height to fit the content, usually auto or fixed if image needs specific frame */
+    height: auto;
+    min-height: 500px;
+}
+
+.maintenance-image-wrapper {
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f8f9fa;
+    /* Fallback */
+}
+
+.maintenance-img {
+    width: 100%;
+    height: auto;
+    /* Changed to auto to maintain aspect ratio of the wide guide image */
+    object-fit: contain;
+    transition: transform 0.8s ease;
+}
+
+.maintenance-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 60px;
+    line-height: 1.1;
+    color: var(--sa-green-dark);
+    position: relative;
+    text-align: left;
+}
+
+.text-blue {
+    color: var(--sa-blue-main);
+    position: relative;
+    display: inline-block;
+}
+
+.text-blue::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: rgba(73, 169, 230, 0.2);
+    z-index: -1;
+}
+
+.maintenance-steps-snake {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-bottom: 60px;
+    padding: 20px 0;
+}
+
+.snake-step {
+    position: relative;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+}
+
+.snake-step.left {
+    justify-content: flex-start;
+    padding-right: 50%;
+    text-align: right;
+}
+
+.snake-step.left .snake-content-block {
+    flex-direction: row-reverse;
+}
+
+.snake-step.right {
+    justify-content: flex-end;
+    padding-left: 50%;
+    text-align: left;
+}
+
+.snake-step.right .snake-content-block {
+    flex-direction: row;
+}
+
+.snake-content-block {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+    z-index: 2;
+    background: #fff;
+    padding: 16px;
+    border-radius: 50px;
+}
+
+.snake-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--sa-blue-main);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid var(--sa-blue-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    flex-shrink: 0;
+}
+
+.snake-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.snake-desc {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2d3436;
+    margin: 0;
+}
+
+.snake-sub {
+    font-size: 0.85rem;
+    color: #b2bec3;
+    margin: 4px 0 0 0;
+}
+
+/* Connectors */
+.snake-step::before {
+    content: '';
+    position: absolute;
+    border: 2px dashed #49A9E6;
+    z-index: 0;
+}
+
+.snake-step:nth-child(1)::before {
+    width: 10%;
+    height: 100%;
+    border-top: 2px dashed #49A9E6;
+    border-right: 2px dashed #49A9E6;
+    border-bottom: none;
+    border-left: none;
+    border-radius: 0 30px 30px 0;
+    right: calc(50% - 30px);
+    top: 50%;
+}
+
+.snake-step:nth-child(2)::before {
+    width: 10%;
+    height: 100%;
+    border-top: 2px dashed #49A9E6;
+    border-left: 2px dashed #49A9E6;
+    border-right: none;
+    border-bottom: none;
+    border-radius: 30px 0 0 30px;
+    left: calc(50% - 30px);
+    top: 50%;
+}
+
+.snake-step:last-child::before {
+    display: none;
+}
+
+.maintenance-footer-text {
+    font-size: 1.2rem;
+    color: #2d3436;
+    font-weight: 500;
+    max-width: 800px;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .maintenance-content {
+        flex-direction: column;
+    }
+
+    .maintenance-right {
+        width: 100%;
+        height: auto;
+    }
+
+    .maintenance-title {
+        font-size: 2.2rem;
+        text-align: center;
+    }
+
+    .snake-step,
+    .snake-step.left,
+    .snake-step.right {
+        justify-content: flex-start;
+        padding: 0;
+        text-align: left;
+    }
+
+    .snake-content-block,
+    .snake-step.left .snake-content-block {
+        flex-direction: row;
+    }
+
+    .snake-step::before {
+        width: 0;
+        height: 100%;
+        border: none;
+        border-left: 2px dashed #49A9E6;
+        left: 29px;
+        top: 30px;
+    }
+}

@@ -1,0 +1,665 @@
+/* Theme vars */
+:root {
+  --gold-100: rgba(255, 215, 128, 0.9);
+  --gold-80: rgba(255, 215, 128, 0.6);
+  --gold-60: rgba(255, 223, 150, 0.85);
+  --white: #ffffff;
+  --text-dark: #2a2a2a;
+  --bg-overlay-dark: rgba(0, 0, 0, 0.75);
+  --bg-overlay-soft: rgba(0, 0, 0, 0.25);
+
+  /* sizing */
+  --hero-max-width: 520px;
+  --button-radius: 999px;
+  --btn-font-sm: 0.85rem;
+  --btn-font-md: 1rem;
+}
+
+.hero-wrapper {
+  width: calc(100% - 20px);
+  max-width: 100%;
+
+  margin: 100px auto 0;
+
+  border-radius: 24px;
+  overflow: hidden;
+
+  box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+}
+
+
+/* ---- Hero Layout ---- */
+.hero-image {
+  position: relative;
+  /* important: anchor for absolute children */
+  width: 100%;
+  height: 100vh;
+  max-height: 700px;
+  min-height: 400px;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  color: var(--white);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Darkened overlay for better text contrast */
+.hero-image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Increased heading size and improved animation */
+/* container: keeps your original look */
+/* HERO TITLE (word-by-word animation) */
+/* HERO TITLE (word-by-word animation) */
+.hero-stitle {
+  margin: 0;
+  font-size: clamp(1.4rem, 4vw, 2.8rem);
+  font-weight: 600;
+  line-height: 1.2;
+  text-transform: uppercase;
+  font-family: "Playfair Display", "Georgia", "Times New Roman", serif;
+  color: #ffffff;
+  background: none;
+  -webkit-text-fill-color: initial;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+
+  /* TEMP: simple fade/slide for debugging */
+  opacity: 0;
+  transform: translateY(30px);
+  animation: heroDebugIn 1s ease-out 0.1s forwards;
+}
+
+@keyframes heroDebugIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-stitle span {
+  display: inline-block;
+  margin-right: 0.35em;
+  /* space between words */
+}
+
+/* SUPPORTING LINE */
+.hero-supporting {
+  margin: 0;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.95);
+  opacity: 0;
+  transform: translateY(18px);
+  max-width: 90%;
+  text-align: left;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  animation: heroSubtitleReveal 0.7s ease-out 1.0s forwards;
+}
+
+/* KEYFRAMES */
+@keyframes heroWordIn {
+  0% {
+    opacity: 0;
+    transform: translateY(26px) scale(0.96);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.02);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes heroSubtitleReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* heroGlow animation removed */
+
+/* CTA row */
+.cta-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+/* Enhanced premium button with gradient and stronger shadows */
+.amazon-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  padding: 1rem 3rem;
+  min-width: 280px;
+  border-radius: var(--button-radius);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  text-decoration: none;
+
+  font-size: var(--btn-font-md);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  /* Brand gradient core */
+  background: var(--sa-green-main);
+  color: #ffffff;
+
+  box-shadow:
+    0 8px 24px rgba(15, 23, 42, 0.45),
+    0 0 24px rgba(255, 215, 128, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+
+  transition:
+    transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.22s ease,
+    background 0.22s ease,
+    color 0.22s ease,
+    opacity 0.22s ease;
+
+  opacity: 0;
+  transform: translateY(14px);
+  animation: heroFadeUp 0.9s ease-out 0.45s forwards;
+  will-change: transform, box-shadow, background;
+}
+
+/* Keyboard focus (clear, but not messy) */
+.amazon-link:focus-visible {
+  outline: 0;
+  box-shadow:
+    0 0 0 3px rgba(255, 255, 255, 0.8),
+    0 0 0 6px rgba(76, 175, 80, 0.45),
+    0 10px 30px rgba(15, 23, 42, 0.5);
+}
+
+/* Soft glossy highlight */
+.amazon-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgba(255, 255, 255, 0.2);
+  opacity: 0.8;
+  transition: opacity 0.22s ease;
+  pointer-events: none;
+}
+
+/* Warm inner glow aligned with gold light */
+.amazon-link::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: transparent;
+  pointer-events: none;
+}
+
+/* Hover: slightly darker gradient + stronger lift */
+.amazon-link:hover {
+  transform: translateY(-3px) scale(1.015);
+  background: var(--sa-green-dark);
+  color: #ffffff;
+  box-shadow:
+    0 14px 34px rgba(15, 23, 42, 0.55),
+    0 0 30px rgba(255, 215, 128, 0.9);
+}
+
+.amazon-link:hover::after {
+  opacity: 1;
+}
+
+/* Active: subtle press, still sharp */
+.amazon-link:active {
+  transform: translateY(-1px) scale(0.985);
+  box-shadow:
+    0 6px 18px rgba(15, 23, 42, 0.55),
+    0 0 20px rgba(255, 215, 128, 0.75),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+/* ---- Bottom layout (tagline left, card right) ---- */
+/* Desktop / large screens */
+.hero-bottom-row {
+  position: absolute;
+  left: 1.5rem;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.5rem;
+  z-index: 2;
+}
+
+/* bottom-left text + button */
+.hero-bottom-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  align-items: flex-start;
+  max-width: 600px;
+}
+
+/* let tagline wrap normally here */
+.hero-bottom-left .hero-stitle {
+  white-space: normal;
+  text-align: left;
+  margin-bottom: 0.5rem;
+}
+
+/* product card bottom-right - reduced emphasis */
+/* product card bottom-right - reduced emphasis */
+.sa-product-card1 {
+  border: none;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 0.75rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  /* <-- stack content vertically */
+  align-items: center;
+  /* center image + text */
+  gap: 0.5rem;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  margin-top: 20px;
+  opacity: 0;
+  transform: translateY(10px);
+  animation:
+    heroFadeUp 0.9s ease-out 0.6s forwards,
+    cardFloat 4s ease-in-out 1.5s infinite;
+  will-change: transform, box-shadow;
+}
+
+.sa-product-card-img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.sa-product-card-info1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* center the text under image */
+}
+
+.sa-product-card-tag {
+  margin: 0.1rem 0 0;
+  font-size: 0.75rem;
+  color: #3a7b7b;
+}
+
+
+/* ---- Animations ---- */
+@keyframes heroFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(var(--start-y, 18px));
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* gentle continuous float up/down */
+@keyframes cardFloat {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroGlow {
+  0% {
+    text-shadow: 0 10px 22px rgba(0, 0, 0, 0.45);
+  }
+
+  100% {
+    text-shadow:
+      0 16px 30px rgba(0, 0, 0, 0.6),
+      0 0 18px rgba(180, 255, 214, 0.35);
+  }
+}
+
+
+/* Respect reduced motion preference */
+/* @media (prefers-reduced-motion: reduce) {
+  .hero-stitle,
+  .hero-supporting,
+  .amazon-link,
+  .product-card {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .amazon-link, .hero-text, .hero-image::before {
+    transition: none;
+  }
+} */
+
+/* ---- Responsiveness ---- */
+
+/* tablet and down - KEEP SIDE-BY-SIDE */
+@media (max-width: 1024px) {
+  .hero-image {
+    height: 80vh;
+    max-height: 600px;
+    padding: 0 1.25rem;
+  }
+
+  .hero-bottom-row {
+    left: 1.25rem;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    gap: 1.25rem;
+  }
+
+  .hero-stitle {
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+  }
+
+  .hero-supporting {
+    font-size: clamp(0.9rem, 1.6vw, 1.1rem);
+  }
+
+  .amazon-link {
+    font-size: 0.9rem;
+    padding: 0.9rem 2.2rem;
+    min-width: 240px;
+  }
+
+  .sa-product-card1 {
+    padding: 0.7rem 0.85rem;
+    margin-top: 15px;
+  }
+
+  .sa-product-card-img {
+    width: 130px;
+    height: 130px;
+  }
+
+  .sa-product-card-title {
+    font-size: 0.85rem;
+  }
+
+  .sa-product-card-tag {
+    font-size: 0.7rem;
+  }
+}
+
+/* large mobiles / small tablets - KEEP SIDE-BY-SIDE */
+@media (max-width: 768px) {
+  .hero-image {
+    height: 75vh;
+    max-height: 550px;
+    min-height: 450px;
+    padding: 0 1rem;
+  }
+
+  .hero-bottom-row {
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    gap: 0.5rem;
+  }
+
+  .hero-bottom-left {
+    flex: 1;
+    max-width: 60%;
+    /* Text takes 60% */
+    gap: 0.2rem;
+  }
+
+  .hero-stitle {
+    font-size: clamp(1.2rem, 4.0vw, 2rem);
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-supporting {
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    margin-bottom: 0.8rem;
+    max-width: 100%;
+  }
+
+  .cta-row {
+    justify-content: flex-start;
+  }
+
+  .amazon-link {
+    font-size: 0.65rem;
+    padding: 0.85rem 2rem;
+    min-width: 230px;
+    max-width: 250px;
+  }
+
+  .sa-product-card1 {
+    max-width: 35%;
+    /* Card takes 35% */
+    min-width: 160px;
+    padding: 0.6rem 0.75rem;
+    margin-top: 0;
+    flex-shrink: 0;
+  }
+
+  .sa-product-card1-img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .sa-product-card1-title {
+    font-size: 0.8rem;
+  }
+
+  .sa-product-card-tag {
+    font-size: 0.65rem;
+  }
+}
+
+/* ---- MOBILE: center text, card bottom-right ---- */
+@media (max-width: 480px) {
+  .hero-wrapper {
+    margin-top: 60px;
+    border-radius: 20px;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+
+  .hero-image {
+    height: 75vh;
+    max-height: 500px;
+    min-height: 400px;
+    padding: 0 0.9rem 1rem;
+  }
+
+  /* Center heading + supporting text + button in middle */
+  .hero-bottom-row {
+    position: static;
+    /* no longer pinned to bottom */
+    left: auto;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    min-height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .hero-bottom-left {
+    max-width: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.4rem;
+  }
+
+  .hero-stitle {
+
+    font-size: clamp(1.1rem, 4vw, 1.4rem);
+
+
+    margin-bottom: 0.2rem;
+    line-height: 1.15;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .hero-supporting {
+    font-size: clamp(0.8rem, 2.2vw, 0.9rem);
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .cta-row {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .amazon-link {
+    font-size: 0.5rem;
+    padding: 0.5rem 1.8rem;
+    min-width: 200px;
+    max-width: 250px;
+  }
+
+  /* Product card fixed at bottom-right of hero-image */
+  .sa-product-card1 {
+    position: absolute;
+    /* relative to .hero-image */
+    right: 0.9rem;
+    bottom: 1rem;
+    max-width: 70%;
+    min-width: auto;
+    /* let width shrink to fit content */
+    padding: 0.35rem 0.55rem;
+    /* smaller inner space */
+    gap: 0.15rem;
+    /* smaller space between image and text */
+    box-sizing: border-box;
+    /* padding included in width */
+  }
+
+  .sa-product-card1-img {
+    width: 90px;
+    height: 90px;
+    flex-shrink: 0;
+    /* image does not shrink */
+  }
+
+  .sa-product-card1-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 100%;
+  }
+
+  .sa-product-card1-title {
+    margin: 0;
+    line-height: 1.1;
+    font-size: 0.55rem;
+    /* smaller title */
+  }
+
+  .product-card-tag {
+    margin: 0;
+    line-height: 1.1;
+    font-size: 0.45rem;
+    /* smaller subtitle */
+  }
+
+
+}/* ===============================
+   ULTRA WIDE SCREENS (2K / 4K)
+   =============================== */
+@media (min-width: 1600px) {
+
+  .hero-container {
+    max-width: 1800px;
+  }
+
+  .hero-image {
+    max-height: 850px;
+  }
+
+  .hero-stitle {
+    font-size: clamp(3rem, 3vw, 4rem);
+    line-height: 1.15;
+  }
+
+  .hero-supporting {
+    font-size: 1.3rem;
+    max-width: 70%;
+  }
+
+  .amazon-link {
+    padding: 1.2rem 3.5rem;
+    font-size: 1.1rem;
+  }
+
+  .sa-product-card1 {
+    transform: scale(1.1);
+  }
+}
