@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,11 +20,11 @@
 @media(max-width:760px){[data-foot]{grid-template-columns:1fr !important;gap:30px !important}}
 @media(max-width:820px){[data-cgrid]{grid-template-columns:1fr !important;gap:34px !important}[data-three]{opacity:.22 !important;right:-34% !important}}
 </style>
-<script src="/support.js"></script>
-</head>
-<body>
-<x-dc>
-<helmet>
+<style id="mobilefix">
+html,body{max-width:100vw !important;overflow-x:hidden !important;margin:0}
+[data-dc-fp]{width:100% !important;max-width:100vw !important;min-width:0 !important;left:0 !important;right:0 !important}
+[data-dc-fp] canvas{max-width:100% !important}
+</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -41,8 +41,13 @@ input:focus,textarea:focus{outline:none}
 @keyframes checkdraw{to{stroke-dashoffset:0}}
 @keyframes popin{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
 </style>
-</helmet>
-
+<style>
+html,body{margin:0;max-width:100vw;overflow-x:hidden}
+[data-three]{display:none !important}
+[data-reveal],[data-hi]{opacity:1 !important;transform:none !important;filter:none !important}
+</style>
+</head>
+<body>
 <div data-screen-label="Aquaveil — Contact" style="font-family:'Manrope',sans-serif;color:#16384A;background:#F7FAFC;overflow-x:clip;position:relative">
 
   <div style="position:fixed;inset:-60%;z-index:9000;pointer-events:none;opacity:0.05;mix-blend-mode:multiply;background-image:url('data:image/svg+xml;charset=utf-8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%222%22 stitchTiles=%22stitch%22/></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/></svg>');background-size:200px 200px;animation:grain .5s steps(2) infinite"></div>
@@ -205,226 +210,22 @@ input:focus,textarea:focus{outline:none}
   </footer>
 
 </div>
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
-class Component extends DCLogic {
-  componentDidMount() {
-    const $ = (s, r = document) => r.querySelector(s);
-    const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-    this._timers = [];
-    this._cleanup = [];
-
-    // mobile menu toggle
-    const _hamb = $('[data-hamb]'); const _navwrap = $('[data-navwrap]');
-    if (_hamb && _navwrap) {
-      _hamb.addEventListener('click', () => { _navwrap.dataset.open = _navwrap.dataset.open === '1' ? '0' : '1'; });
-      _navwrap.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => { _navwrap.dataset.open = '0'; }));
-    }
-
-    // hero intro
-    $$('[data-hi]').forEach((el, i) => { this._timers.push(setTimeout(() => { el.style.transition = 'opacity 1s ease,transform 1s ease'; el.style.opacity = '1'; el.style.transform = 'none'; }, 200 + i * 130)); });
-
-    // reveals
-    const revealEls = $$('[data-reveal]');
-    const armed = new Set();
-    const revealCheck = () => {
-      const vh = window.innerHeight;
-      revealEls.forEach((el) => {
-        if (armed.has(el)) return;
-        const r = el.getBoundingClientRect();
-        if (r.top < vh * 0.9 && r.bottom > 0) { armed.add(el); const d = +(el.dataset.revealDelay || 0); this._timers.push(setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'none'; el.style.filter = 'none'; }, d)); }
-      });
-    };
-
-    // 3D tilt cards
-    $$('[data-tilt]').forEach((card) => {
-      const inner = $('[data-tilt-in]', card);
-      if (!inner) return;
-      const mv = (e) => { const r = card.getBoundingClientRect(); const px = (e.clientX - r.left) / r.width - 0.5; const py = (e.clientY - r.top) / r.height - 0.5; inner.style.transform = `rotateX(${(-py * 8).toFixed(2)}deg) rotateY(${(px * 10).toFixed(2)}deg) translateZ(6px)`; inner.style.boxShadow = '0 30px 60px -26px rgba(14,38,34,.45)'; };
-      const lv = () => { inner.style.transform = 'rotateX(0deg) rotateY(0deg)'; inner.style.boxShadow = '0 14px 34px -22px rgba(14,38,34,.4)'; };
-      card.addEventListener('mousemove', mv); card.addEventListener('mouseleave', lv);
-      this._cleanup.push(() => { card.removeEventListener('mousemove', mv); card.removeEventListener('mouseleave', lv); });
-    });
-
-    // subject chips
-    let subject = 'Order help';
-    const chips = $$('[data-chip]');
-    chips.forEach((c) => c.addEventListener('click', () => {
-      subject = c.dataset.chip;
-      chips.forEach((o) => { const on = o === c; o.style.background = on ? '#16384A' : 'transparent'; o.style.color = on ? '#F7FAFC' : '#16384A'; o.style.borderColor = on ? '#16384A' : 'rgba(14,38,34,.2)'; });
-    }));
-
-    // floating labels
-    $$('[data-field]').forEach((f) => {
-      const input = $('[data-input]', f), label = $('[data-label]', f);
-      const up = () => { label.style.top = '8px'; label.style.fontSize = '11px'; label.style.letterSpacing = '.5px'; label.style.color = '#4F9FD6'; };
-      const down = () => { if (!input.value) { label.style.top = '16px'; label.style.fontSize = '15px'; label.style.letterSpacing = '0'; label.style.color = '#6F8A98'; } };
-      const focus = () => { up(); input.style.borderColor = '#4F9FD6'; input.style.boxShadow = '0 0 0 4px rgba(62,134,124,.12)'; };
-      const blur = () => { down(); input.style.borderColor = 'rgba(14,38,34,.16)'; input.style.boxShadow = 'none'; };
-      input.addEventListener('focus', focus); input.addEventListener('blur', blur); input.addEventListener('input', () => { if (input.value) up(); });
-    });
-
-    // submit + validation + success
-    const form = $('[data-form]'), errEl = $('[data-error]'), success = $('[data-success]'), check = $('[data-checkpath]');
-    if (form) {
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const inputs = $$('[data-input]', form);
-        const [name, email, msg] = inputs;
-        const showErr = (t) => { errEl.textContent = t; errEl.style.height = '24px'; };
-        if (!name.value.trim() || !email.value.trim() || !msg.value.trim()) return showErr('Please fill in every field before sending.');
-        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.value)) return showErr('That email address doesn’t look right.');
-        errEl.style.height = '0px';
-        const btn = form.querySelector('[data-submit]'); const orig = btn ? btn.textContent : '';
-        if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
-        try {
-          const res = await fetch('https://mern-backend-py4u.onrender.com/submit-form', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: name.value.trim(), email: email.value.trim(), inquiryType: subject, inquiry: msg.value.trim() }) });
-          const data = await res.json();
-          const ok = !!(data && data.success && data.data && (data.data.emailSent || data.data.savedToDB));
-          if (ok) { success.style.opacity = '1'; success.style.visibility = 'visible'; if (check) { check.style.animation = 'none'; void check.getBoundingClientRect(); check.style.animation = 'checkdraw .6s ease .15s forwards'; } }
-          else { showErr((data && data.message) || 'Could not send right now. Please email support@sustainaura.com.'); }
-        } catch (err) { showErr('Network issue. Please email support@sustainaura.com directly.'); }
-        finally { if (btn) { btn.disabled = false; btn.textContent = orig; } }
-      });
-    }
-    const reset = $('[data-reset]');
-    if (reset) reset.addEventListener('click', () => {
-      success.style.opacity = '0'; success.style.visibility = 'hidden';
-      $$('[data-input]', form).forEach((i) => { i.value = ''; i.dispatchEvent(new Event('blur')); });
-    });
-
-    // three.js accent
-    this._initThree($('[data-three]'));
-
-    // scroll engine
-    const nav = $('[data-nav]'), bar = $('[data-progress]'), body = document.body;
-    const frame = () => {
-      const vh = window.innerHeight, scrolled = -body.getBoundingClientRect().top;
-      if (nav) { if (scrolled > 40) { nav.style.background = 'rgba(250,247,241,0.82)'; nav.style.borderBottomColor = 'rgba(14,38,34,0.08)'; nav.style.backdropFilter = 'blur(14px) saturate(1.3)'; } else { nav.style.background = 'rgba(250,247,241,0)'; nav.style.borderBottomColor = 'rgba(14,38,34,0)'; nav.style.backdropFilter = 'blur(0px)'; } }
-      if (bar) { const h = body.scrollHeight - vh; bar.style.transform = `scaleX(${Math.min(1, h > 0 ? scrolled / h : 0)})`; }
-      revealCheck();
-    };
-    frame();
-    this._loop = setInterval(frame, 33);
-  }
-
-  _initThree(container) {
-    if (!container || typeof THREE === 'undefined') return;
-    try {
-      const w = container.clientWidth || 600, h = container.clientHeight || 600;
-      const scene = new THREE.Scene();
-      const cam = new THREE.PerspectiveCamera(50, w / h, 0.1, 100); cam.position.z = 5;
-      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-      renderer.setSize(w, h); renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
-      container.appendChild(renderer.domElement);
-      const group = new THREE.Group(); scene.add(group);
-      const knot = new THREE.Mesh(new THREE.TorusKnotGeometry(1.3, 0.34, 120, 18), new THREE.MeshBasicMaterial({ color: 0x3E867C, wireframe: true, transparent: true, opacity: 0.4 }));
-      const pts = new THREE.Points(new THREE.IcosahedronGeometry(2.1, 3), new THREE.PointsMaterial({ color: 0x9BC8C1, size: 0.03, transparent: true, opacity: 0.7 }));
-      group.add(knot); group.add(pts);
-      this._three = { renderer, container };
-      const resize = () => { const W = container.clientWidth, H = container.clientHeight; if (!W || !H) return; cam.aspect = W / H; cam.updateProjectionMatrix(); renderer.setSize(W, H); };
-      window.addEventListener('resize', resize); this._cleanup.push(() => window.removeEventListener('resize', resize));
-      const animate = () => { this._raf = requestAnimationFrame(animate); knot.rotation.x += 0.004; knot.rotation.y += 0.006; pts.rotation.y -= 0.0016; renderer.render(scene, cam); };
-      animate();
-    } catch (err) {}
-  }
-
-  componentWillUnmount() {
-    (this._cleanup || []).forEach((fn) => fn());
-    (this._timers || []).forEach((t) => clearTimeout(t));
-    if (this._loop) clearInterval(this._loop);
-    if (this._raf) cancelAnimationFrame(this._raf);
-    if (this._three && this._three.renderer) { try { this._three.renderer.dispose(); this._three.container.removeChild(this._three.renderer.domElement); } catch (e) {} }
-  }
-}
-</script>
-<style>
-#toTop{position:fixed;left:22px;bottom:22px;z-index:9700;width:46px;height:46px;border-radius:50%;border:none;background:#16384A;color:#fff;font-size:20px;cursor:pointer;opacity:0;visibility:hidden;transition:opacity .3s,transform .3s,background .3s;box-shadow:0 18px 40px -16px rgba(22,56,74,.6)}
-#toTop.show{opacity:1;visibility:visible}#toTop:hover{background:#4F9FD6;transform:translateY(-3px)}
-#chatBtn{position:fixed;left:22px;bottom:80px;z-index:9700;width:52px;height:52px;border-radius:50%;border:none;background:#4F9FD6;cursor:pointer;box-shadow:0 18px 40px -16px rgba(22,56,74,.6);display:flex;align-items:center;justify-content:center;transition:transform .3s,background .3s}
-#chatBtn:hover{transform:translateY(-3px);background:#16384A}
-#chatPanel{position:fixed;left:22px;bottom:144px;z-index:9700;width:330px;max-width:calc(100vw - 44px);background:#fff;border:1px solid rgba(22,56,74,.1);border-radius:18px;box-shadow:0 30px 70px -30px rgba(22,56,74,.6);overflow:hidden;opacity:0;visibility:hidden;transform:translateY(10px);transition:all .3s}
-#chatPanel.show{opacity:1;visibility:visible;transform:none}
-.cw-hd{background:#16384A;color:#fff;padding:15px 18px;display:flex;align-items:center;gap:11px}
-.cw-dot{width:9px;height:9px;border-radius:50%;background:#5BB54A;box-shadow:0 0 0 4px rgba(91,181,74,.25);flex:none}
-.cw-hd b{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:500;display:block;line-height:1.1}
-.cw-sub{font-size:11px;color:#9DB4C6;letter-spacing:.3px}
-.cw-msgs{height:248px;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:#F7FAFC}
-.cw-msg{max-width:86%;padding:10px 13px;border-radius:14px;font-size:13px;line-height:1.5}
-.cw-bot{align-self:flex-start;background:#fff;border:1px solid rgba(22,56,74,.1);color:#16384A;border-bottom-left-radius:4px}
-.cw-user{align-self:flex-end;background:#4F9FD6;color:#fff;border-bottom-right-radius:4px}
-.cw-msg a{color:#4F9FD6;font-weight:600}.cw-user a{color:#fff;text-decoration:underline}
-.cw-chips{display:flex;flex-wrap:wrap;gap:7px;padding:12px 14px 14px;border-top:1px solid rgba(22,56,74,.08);background:#fff}
-.cw-chip{background:#EAF4FB;color:#16384A;border:none;border-radius:100px;padding:8px 13px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .2s,color .2s}
-.cw-chip:hover{background:#4F9FD6;color:#fff}
-</style>
-<button id="toTop" aria-label="Back to top">&#8593;</button>
-<button id="chatBtn" aria-label="Chat with us"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1 1 21 11.5z"/></svg></button>
-<div id="chatPanel"><div class="cw-hd"><span class="cw-dot"></span><div style="flex:1"><b>SustainAura Assistant</b><div class="cw-sub">Eco-friendly liners &middot; ask me anything</div></div></div><div class="cw-msgs" id="cbMsgs"></div><div class="cw-chips" id="cbChips"></div><form class="cw-input" id="cbForm"><input id="cbInput" type="text" autocomplete="off" placeholder="Ask about eco, sizes, shipping..."/><button type="submit" aria-label="Send">&#10148;</button></form></div>
-<script>
-(function(){var t=document.getElementById("toTop");addEventListener("scroll",function(){if(window.scrollY>400)t.classList.add("show");else t.classList.remove("show");},{passive:true});t.addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"});});var c=document.getElementById("chatBtn"),p=document.getElementById("chatPanel");c.addEventListener("click",function(){p.classList.toggle("show");});})();
-(function(){
-var msgs=document.getElementById("chatMsgs"),chips=document.getElementById("chatChips");
-if(!msgs||!chips)return;
-var SHOP="/shop",AMZ="https://a.co/d/1gs8ryW";
-function add(who,html){var d=document.createElement("div");d.className="cw-msg cw-"+who;d.innerHTML=html;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;}
-var KB={
-essential:"<b>Essential</b> is our lightest liner &mdash; a slim, quick-drying PEVA sheet, perfect for guest baths, rentals and dorms. <a href=\""+SHOP+"\">See Essential &rarr;</a>",
-premium:"<b>Premium</b> is our flagship mid-weight &mdash; the everyday balance of privacy, durability and a dead-straight hang. Most people pick this one. <a href=\""+SHOP+"\">See Premium &rarr;</a>",
-heavyduty:"<b>HeavyDuty</b> is our thickest, hotel-grade liner &mdash; heaviest hang, deepest folds, built to last for years. <a href=\""+SHOP+"\">See HeavyDuty &rarr;</a>",
-shipping:"Free shipping, a 30-night trial, and easy returns. Orders usually ship within 1&ndash;2 business days.",
-human:"You are already on our contact page &mdash; fill the form, or email <a href=\"mailto:support@sustainaura.com\">support@sustainaura.com</a>.",
-amazon:"Buy SustainAura liners on Amazon: <a href=\""+AMZ+"\" target=\"_blank\" rel=\"noreferrer\">Shop on Amazon &rarr;</a>"
-};
-var CHIPS=[["Essential","essential"],["Premium","premium"],["HeavyDuty","heavyduty"],["Shipping &amp; returns","shipping"],["Buy on Amazon","amazon"],["Talk to a human","human"]];
-function chip(label,key){var b=document.createElement("button");b.className="cw-chip";b.innerHTML=label;b.addEventListener("click",function(){add("user",label);setTimeout(function(){add("bot",KB[key]);},260);});return b;}
-add("bot","Hi! I am the SustainAura assistant. Which liner are you curious about?");
-CHIPS.forEach(function(c){chips.appendChild(chip(c[0],c[1]));});
-})();
-</script>
-<style>
-.cw-input{display:flex;gap:8px;padding:10px 12px;border-top:1px solid rgba(22,56,74,.08);background:#fff}
-.cw-input input{flex:1;min-width:0;border:1px solid rgba(22,56,74,.15);border-radius:100px;padding:9px 14px;font-family:inherit;font-size:13px;outline:none;color:#16384A}
-.cw-input input:focus{border-color:#4F9FD6}
-.cw-input button{border:none;background:#16384A;color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:13px;flex:none;transition:background .2s}
-.cw-input button:hover{background:#4F9FD6}
-.cw-chips{padding:12px 14px 8px}
-</style>
 <script>
 (function(){
-var msgs=document.getElementById("cbMsgs"),chips=document.getElementById("cbChips"),form=document.getElementById("cbForm"),input=document.getElementById("cbInput");
-if(!msgs||!form)return;
-var SHOP="/shop",AMZ="https://a.co/d/1gs8ryW";
-function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
-function add(who,html){var d=document.createElement("div");d.className="cw-msg cw-"+who;d.innerHTML=html;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;}
-var R={
-eco:"We are built around sustainability. Every SustainAura liner is <b>PVC-free</b> and made with <b>30% recycled PEVA</b> &mdash; a cleaner, chlorine-free alternative to vinyl that is kinder to your home and the planet. <a href=\""+SHOP+"\">Shop eco liners &rarr;</a>",
-material:"Our liners are made from <b>PEVA</b>, a chlorine- and PVC-free plastic, with 30% recycled content. No phthalates and no harsh chemical smell &mdash; safe for kids, pets and sensitive lungs.",
-recycled:"Yes! Each liner uses <b>30% recycled PEVA</b>, cutting waste and virgin plastic while staying fully waterproof and durable.",
-pvc:"100% <b>PVC-free</b>. PVC is the smelly, toxic vinyl most cheap liners use &mdash; we never use it.",
-essential:"<b>Essential</b> is our lightest liner &mdash; slim, quick-drying, and great for guest baths, rentals and dorms. <a href=\""+SHOP+"\">See Essential &rarr;</a>",
-premium:"<b>Premium</b> is our flagship mid-weight &mdash; the best balance of privacy, durability and a dead-straight hang. <a href=\""+SHOP+"\">See Premium &rarr;</a>",
-heavyduty:"<b>HeavyDuty</b> is our thickest, hotel-grade liner &mdash; heaviest hang, deepest folds, built to last for years. <a href=\""+SHOP+"\">See HeavyDuty &rarr;</a>",
-grades:"We make three weights: <b>Essential</b> (lightest), <b>Premium</b> (everyday flagship) and <b>HeavyDuty</b> (thickest, hotel-grade) &mdash; each in Clear, Frosty and White. <a href=\""+SHOP+"\">Compare them &rarr;</a>",
-size:"Standard size is a true <b>72 x 72 inch</b> cut with 12 reinforced grommets, fitting standard tubs and stalls. A weighted hem keeps it hanging dead straight.",
-shipping:"We offer <b>free shipping</b>, and orders usually leave within 1&ndash;2 business days.",
-returns:"Every liner comes with a <b>30-night trial</b> and easy returns &mdash; if it is not for you, send it back.",
-care:"Care is easy: wipe down or machine wash cold and hang to dry. The water-repellent surface dries in minutes and resists mildew.",
-mildew:"The breathable, water-repellent surface dries within minutes, so mildew never gets the damp it needs to grow.",
-odor:"No chemical smell &mdash; our PEVA is chlorine-free and PVC-free, so there is none of that new-shower-curtain plastic odor.",
-price:"Pricing varies by weight and finish &mdash; the easiest place to see current prices is Amazon: <a href=\""+AMZ+"\" target=\"_blank\" rel=\"noreferrer\">Shop on Amazon &rarr;</a>",
-amazon:"You can buy SustainAura liners on Amazon: <a href=\""+AMZ+"\" target=\"_blank\" rel=\"noreferrer\">Shop on Amazon &rarr;</a>",
-contact:"Reach a human anytime at <a href=\"mailto:support@sustainaura.com\">support@sustainaura.com</a> or through our <a href=\"/contact\">contact form</a>.",
-hi:"Hi there! I can tell you about our eco-friendly liners, materials, sizes, shipping, returns and care. What would you like to know?",
-thanks:"You are welcome! Anything else I can help with?"
-};
-var RULES=[[/eco|environment|sustain|green|planet|earth|friendly|conscious/,"eco"],[/recycl/,"recycled"],[/pvc|vinyl/,"pvc"],[/peva|material|made of|made from|fabric|what is it made/,"material"],[/essential/,"essential"],[/premium/,"premium"],[/heavy|thick|durab|strong/,"heavyduty"],[/grade|weight|differ|compare|which one|which liner|option|type/,"grades"],[/size|dimension|fit|72|tub|stall|measure|grommet|long|wide/,"size"],[/ship|deliver|postage|arrive|how long/,"shipping"],[/return|refund|trial|guarantee|warranty|money back/,"returns"],[/clean|wash|care|maintain|launder/,"care"],[/mildew|mold|mould/,"mildew"],[/smell|odor|odour|toxic|chemical|fume|safe/,"odor"],[/price|cost|how much|expensive|cheap|\$/,"price"],[/buy|order|purchase|amazon|where can i/,"amazon"],[/contact|human|email|support|help|agent|talk|phone|reach/,"contact"],[/thank/,"thanks"],[/^(hi|hello|hey|yo|hiya|howdy|good)/,"hi"]];
-function answer(q){var s=q.toLowerCase();for(var i=0;i<RULES.length;i++){if(RULES[i][0].test(s))return R[RULES[i][1]];}return "Great question! I can help with our liners, materials and sustainability, sizing, shipping, returns and care. Try asking about <b>eco-friendly</b>, <b>sizes</b> or <b>shipping</b> &mdash; or email <a href=\"mailto:support@sustainaura.com\">support@sustainaura.com</a>.";}
-function reply(q){setTimeout(function(){add("bot",answer(q));},300);}
-var CH=[["Eco-friendly?","is it eco friendly"],["The 3 weights","what grades and weights"],["Sizes","what size are the liners"],["Shipping &amp; returns","shipping and returns"],["Buy on Amazon","buy on amazon"]];
-CH.forEach(function(c){var b=document.createElement("button");b.className="cw-chip";b.innerHTML=c[0];b.addEventListener("click",function(){add("user",c[0]);reply(c[1]);});chips.appendChild(b);});
-form.addEventListener("submit",function(e){e.preventDefault();var q=input.value.trim();if(!q)return;add("user",esc(q));input.value="";reply(q);});
-add("bot","Hi! I am the SustainAura assistant &mdash; ask me anything about our eco-friendly liners, sizes, shipping or care.");
+var $=function(s,r){return (r||document).querySelector(s);};
+var $$=function(s,r){return [].slice.call((r||document).querySelectorAll(s));};
+$$('[data-reveal],[data-hi]').forEach(function(el){el.style.opacity='1';el.style.transform='none';el.style.filter='none';});
+var hamb=$('[data-hamb]'),navwrap=$('[data-navwrap]');
+if(hamb&&navwrap){hamb.addEventListener('click',function(){navwrap.dataset.open=navwrap.dataset.open==='1'?'0':'1';});navwrap.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){navwrap.dataset.open='0';});});}
+var nav=$('[data-nav]');
+addEventListener('scroll',function(){var y=window.scrollY||window.pageYOffset||0;if(nav){if(y>40){nav.style.background='rgba(247,250,252,0.92)';nav.style.borderBottomColor='rgba(22,56,74,0.08)';nav.style.backdropFilter='blur(14px) saturate(1.3)';}else{nav.style.background='rgba(247,250,252,0)';nav.style.borderBottomColor='rgba(22,56,74,0)';nav.style.backdropFilter='none';}}},{passive:true});
+var subject='Order help';
+$$('[data-chip]').forEach(function(c){c.addEventListener('click',function(){subject=c.dataset.chip;$$('[data-chip]').forEach(function(o){var on=o===c;o.style.background=on?'#16384A':'transparent';o.style.color=on?'#F7FAFC':'#16384A';o.style.borderColor=on?'#16384A':'rgba(14,38,34,.2)';});});});
+$$('[data-field]').forEach(function(f){var input=$('[data-input]',f),label=$('[data-label]',f);if(!input||!label)return;function up(){label.style.top='8px';label.style.fontSize='11px';label.style.color='#4F9FD6';}function down(){if(!input.value){label.style.top='16px';label.style.fontSize='15px';label.style.color='#6F8A98';}}input.addEventListener('focus',up);input.addEventListener('blur',down);input.addEventListener('input',function(){if(input.value)up();});});
+var form=$('[data-form]'),errEl=$('[data-error]'),success=$('[data-success]'),check=$('[data-checkpath]');
+function showErr(t){if(errEl){errEl.textContent=t;errEl.style.height='24px';}}
+if(form){form.addEventListener('submit',function(e){e.preventDefault();var inputs=$$('[data-input]',form),name=inputs[0],email=inputs[1],msg=inputs[2];if(!name.value.trim()||!email.value.trim()||!msg.value.trim())return showErr('Please fill in every field before sending.');if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.value))return showErr('That email address does not look right.');if(errEl)errEl.style.height='0px';var btn=$('[data-submit]',form),orig=btn?btn.textContent:'';if(btn){btn.disabled=true;btn.textContent='Sending...';}fetch('https://mern-backend-py4u.onrender.com/submit-form',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name.value.trim(),email:email.value.trim(),inquiryType:subject,inquiry:msg.value.trim()})}).then(function(r){return r.json();}).then(function(data){var ok=!!(data&&data.success&&data.data&&(data.data.emailSent||data.data.savedToDB));if(ok){if(success){success.style.opacity='1';success.style.visibility='visible';}if(check){check.style.animation='none';void check.getBoundingClientRect();check.style.animation='checkdraw .6s ease .15s forwards';}}else{showErr((data&&data.message)||'Could not send right now. Email support@sustainaura.com.');}}).catch(function(){showErr('Network issue. Email support@sustainaura.com directly.');}).then(function(){if(btn){btn.disabled=false;btn.textContent=orig;}});});}
+var reset=$('[data-reset]');if(reset)reset.addEventListener('click',function(){if(success){success.style.opacity='0';success.style.visibility='hidden';}if(form)$$('[data-input]',form).forEach(function(i){i.value='';});});
 })();
 </script>
 </body>

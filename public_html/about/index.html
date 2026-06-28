@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,11 +11,11 @@
 <meta property="og:description" content="Eco-conscious recycled PEVA shower curtain liners for healthier, greener bathrooms."/>
 <meta property="og:url" content="https://sustainaura.com/about/"/>
 <meta property="og:image" content="https://sustainaura.com/SustainAura.png"/>
-<script src="/support.js"></script>
-</head>
-<body>
-<x-dc>
-<helmet>
+<style id="mobilefix">
+html,body{max-width:100vw !important;overflow-x:hidden !important;margin:0}
+[data-dc-fp]{width:100% !important;max-width:100vw !important;min-width:0 !important;left:0 !important;right:0 !important}
+[data-dc-fp] canvas{max-width:100% !important}
+</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -37,8 +37,24 @@ body{margin:0;background:#F7FAFC}
   }
   @media(max-width:760px){[data-foot]{grid-template-columns:1fr !important;gap:30px !important}}
 </style>
-</helmet>
-
+<style>
+html,body{margin:0;max-width:100vw;overflow-x:hidden}
+[style*="inset:-60%"]{display:none !important}
+[data-three]{display:none !important}
+[data-reveal],[data-hero-t],[data-hi],[data-impact],[data-mat],[data-mat-vis],[data-jchap],[data-jmark],[data-count]{opacity:1 !important;transform:none !important;filter:none !important}
+[data-journey]{height:auto !important}
+[data-journey-pin]{position:static !important;height:auto !important;overflow:visible !important;padding:clamp(60px,10vw,110px) 0 !important}
+[data-jchap]{position:relative !important;max-width:760px !important;margin:0 auto clamp(40px,7vw,70px) !important;padding:0 clamp(24px,6vw,60px) !important}
+[data-jindex]{display:none !important}
+</style>
+<style>
+@media(max-width:620px){
+  [data-hero] h1{font-size:clamp(34px,10vw,44px) !important;line-height:1.05}
+  [data-hero] p{font-size:15px !important}
+  [data-jchap] h3, [data-jchap] h2{font-size:clamp(26px,7vw,34px) !important}
+}
+</style></head>
+<body>
 <div data-screen-label="SustainAura — About" style="font-family:'Manrope',sans-serif;color:#16384A;background:#F7FAFC;overflow-x:clip;position:relative">
 
   <div style="position:fixed;inset:-60%;z-index:9000;pointer-events:none;opacity:0.05;mix-blend-mode:multiply;background-image:url('data:image/svg+xml;charset=utf-8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%222%22 stitchTiles=%22stitch%22/></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/></svg>');background-size:200px 200px;animation:grain .5s steps(2) infinite"></div>
@@ -231,358 +247,18 @@ body{margin:0;background:#F7FAFC}
   </footer>
 
 </div>
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
-class Component extends DCLogic {
-  componentDidMount() {
-    const $ = (s, r = document) => r.querySelector(s);
-    const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-    this._timers = [];
-    this._cleanup = [];
-
-    // mobile menu toggle
-    const _hamb = $('[data-hamb]'); const _navwrap = $('[data-navwrap]');
-    if (_hamb && _navwrap) {
-      _hamb.addEventListener('click', () => { _navwrap.dataset.open = _navwrap.dataset.open === '1' ? '0' : '1'; });
-      _navwrap.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => { _navwrap.dataset.open = '0'; }));
-    }
-
-    // hero intro
-    $$('[data-hero-t]').forEach((el, i) => {
-      this._timers.push(setTimeout(() => { el.style.transition = 'opacity 1s ease,transform 1s ease'; el.style.opacity = '1'; el.style.transform = 'none'; }, 220 + i * 160));
-    });
-
-    // reveal on scroll (rect-based)
-    const revealEls = $$('[data-reveal]');
-    const armed = new Set();
-    const revealCheck = () => {
-      const vh = window.innerHeight;
-      revealEls.forEach((el) => {
-        if (armed.has(el)) return;
-        const r = el.getBoundingClientRect();
-        if (r.top < vh * 0.9 && r.bottom > 0) {
-          armed.add(el);
-          const d = +(el.dataset.revealDelay || 0);
-          this._timers.push(setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'none'; el.style.filter = 'none'; if (el.hasAttribute('data-impact-trigger')) {} }, d));
-        }
-      });
-    };
-
-    // count-up stats (trigger when impact section enters)
-    const impact = $('[data-impact]');
-    const counters = $$('[data-count]');
-    let counted = false;
-    const runCount = () => {
-      if (counted) return; counted = true;
-      counters.forEach((el) => {
-        const to = +el.dataset.to, from = el.dataset.from ? +el.dataset.from : 0, suf = el.dataset.suffix || '';
-        const t0 = Date.now(), dur = 1400;
-        const tick = () => {
-          const k = Math.min(1, (Date.now() - t0) / dur);
-          const e = 1 - Math.pow(1 - k, 3);
-          el.textContent = Math.round(from + (to - from) * e) + suf;
-          if (k < 1) this._timers.push(setTimeout(tick, 30));
-        };
-        tick();
-      });
-    };
-
-    // 3D tilt promise cards
-    $$('[data-ptilt]').forEach((card) => {
-      const inner = $('[data-ptilt-in]', card);
-      if (!inner) return;
-      const mv = (e) => {
-        const r = card.getBoundingClientRect();
-        const px = (e.clientX - r.left) / r.width - 0.5;
-        const py = (e.clientY - r.top) / r.height - 0.5;
-        inner.style.transform = `rotateX(${(-py * 8).toFixed(2)}deg) rotateY(${(px * 10).toFixed(2)}deg) translateZ(6px)`;
-        inner.style.background = 'rgba(255,255,255,.08)';
-      };
-      const lv = () => { inner.style.transform = 'rotateX(0deg) rotateY(0deg)'; inner.style.background = 'rgba(255,255,255,.04)'; };
-      card.addEventListener('mousemove', mv); card.addEventListener('mouseleave', lv);
-      this._cleanup.push(() => { card.removeEventListener('mousemove', mv); card.removeEventListener('mouseleave', lv); });
-    });
-
-    // FAQ accordion
-    $$('[data-faq]').forEach((item) => {
-      const q = $('[data-faq-q]', item), a = $('[data-faq-a]', item), ic = $('[data-faq-ic]', item);
-      q.addEventListener('click', () => {
-        const open = a.style.maxHeight && a.style.maxHeight !== '0px';
-        $$('[data-faq]').forEach((o) => { const oa = $('[data-faq-a]', o), oi = $('[data-faq-ic]', o); oa.style.maxHeight = '0px'; oi.textContent = '+'; oi.style.transform = 'rotate(0deg)'; oi.style.background = 'transparent'; oi.style.color = '#16384A'; });
-        if (!open) { a.style.maxHeight = a.scrollHeight + 'px'; ic.textContent = '–'; ic.style.transform = 'rotate(180deg)'; ic.style.background = '#16384A'; ic.style.color = '#F7FAFC'; }
-      });
-    });
-
-    // dust for journey
-    const jdust = $('[data-jdust]');
-    if (jdust && !jdust.childElementCount) {
-      for (let i = 0; i < 22; i++) { const d = document.createElement('div'); const sz = (Math.random() * 2.6 + 1.4).toFixed(1); d.style.cssText = 'position:absolute;border-radius:50%;background:rgba(255,255,255,' + (0.1 + Math.random() * 0.22).toFixed(2) + ');width:' + sz + 'px;height:' + sz + 'px;left:' + (Math.random() * 100).toFixed(1) + '%;top:' + (Math.random() * 100).toFixed(1) + '%;filter:blur(.5px);animation:dustdrift ' + (10 + Math.random() * 12).toFixed(1) + 's ease-in-out ' + (-Math.random() * 12).toFixed(1) + 's infinite'; jdust.appendChild(d); }
-    }
-
-    // ===== three.js globe =====
-    this._initThree($('[data-three]'));
-
-    // ===== side section nav =====
-    const snDots = $$('[data-sn]');
-    const snLabel = $('[data-sn-label]');
-    const snTargets = snDots.map((d) => ({ dot: d, id: d.dataset.target, el: document.getElementById(d.dataset.target) || $('[data-hero]') }));
-    void snTargets;
-    snDots.forEach((d) => {
-      d.addEventListener('click', () => { const el = document.getElementById(d.dataset.target) || $('[data-hero]'); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + (document.scrollingElement.scrollTop || window.pageYOffset || 0) - 10, behavior: 'smooth' }); });
-      d.addEventListener('mouseenter', () => { if (snLabel) { snLabel.textContent = d.title; snLabel.style.top = (d.getBoundingClientRect().top + 1) + 'px'; snLabel.style.opacity = '1'; snLabel.style.transform = 'translateX(0)'; } });
-      d.addEventListener('mouseleave', () => { if (snLabel) { snLabel.style.opacity = '0'; snLabel.style.transform = 'translateX(6px)'; } });
-    });
-    this._snUpdate = () => {
-      const mid = window.innerHeight * 0.4;
-      let active = 0;
-      snTargets.forEach((t, i) => { if (t.el && t.el.getBoundingClientRect().top <= mid) active = i; });
-      snDots.forEach((d, i) => {
-        const on = i === active;
-        d.style.height = on ? '26px' : '10px';
-        d.style.borderRadius = on ? '5px' : '50%';
-        d.style.background = on ? '#4F9FD6' : 'rgba(120,150,144,.55)';
-      });
-    };
-
-    // ===== journey clickable markers =====
-    const journeySec = $('[data-journey]');
-    $$('[data-jmark]').forEach((m) => {
-      m.addEventListener('click', () => {
-        if (!journeySec) return;
-        const i = +m.dataset.i, n = $$('[data-jchap]', journeySec).length || 4;
-        const total = journeySec.offsetHeight - window.innerHeight;
-        const top = journeySec.getBoundingClientRect().top + (document.scrollingElement.scrollTop || window.pageYOffset || 0);
-        window.scrollTo({ top: top + total * ((i + 0.5) / n), behavior: 'smooth' });
-      });
-      m.addEventListener('mouseenter', () => { m.style.transform = 'translate(-50%,-50%) scale(1.5)'; m.style.background = '#7CC36B'; });
-      m.addEventListener('mouseleave', () => { m.style.transform = 'translate(-50%,-50%) scale(1)'; });
-    });
-
-    // ===== material showdown toggle =====
-    const matBtns = $$('[data-mat]');
-    if (matBtns.length) {
-      const data = [
-        { tag: 'SustainAura PEVA', odor: 95, tox: 100, rec: 100, feel: 88, grad: 'linear-gradient(90deg,#7CC36B,#4F9FD6)', vis: 'linear-gradient(180deg,#eaf4fb,#bcd6ec)', desc: 'Chlorine-free PEVA is odorless from the box, fully recyclable, and stays soft without toxic plasticizers. The honest upgrade.' },
-        { tag: 'Old PVC vinyl', odor: 18, tox: 24, rec: 8, feel: 40, grad: 'linear-gradient(90deg,#d9a98f,#b3503e)', vis: 'linear-gradient(180deg,#e4ddcf,#bcae93)', desc: 'Conventional PVC off-gasses that sharp plastic smell, leaches phthalates, and is near-impossible to recycle. The liner we set out to replace.' }
-      ];
-      const set = (i) => {
-        const d = data[i];
-        const bar = (s, v) => { const el = $(s); if (el) { el.style.width = v + '%'; el.style.background = d.grad; } };
-        const num = (s, v) => { const el = $(s); if (el) el.textContent = v + '%'; };
-        bar('[data-ml-odor]', d.odor); num('[data-ml-odor-v]', d.odor);
-        bar('[data-ml-tox]', d.tox); num('[data-ml-tox-v]', d.tox);
-        bar('[data-ml-rec]', d.rec); num('[data-ml-rec-v]', d.rec);
-        bar('[data-ml-feel]', d.feel); num('[data-ml-feel-v]', d.feel);
-        const vis = $('[data-mat-vis]'); if (vis) vis.style.background = d.vis;
-        const tex = $('[data-mat-tex]'); if (tex) tex.style.opacity = i === 0 ? '1' : '.4';
-        const tag = $('[data-mat-tag]'); if (tag) { tag.textContent = d.tag; tag.style.background = i === 0 ? 'rgba(22,56,74,.82)' : 'rgba(120,60,40,.85)'; }
-        const desc = $('[data-mat-desc]'); if (desc) { desc.style.opacity = '0'; this._timers.push(setTimeout(() => { desc.textContent = d.desc; desc.style.opacity = '1'; }, 180)); }
-        matBtns.forEach((b, k) => { const on = k === i; b.style.background = on ? (i === 0 ? '#16384A' : '#b3503e') : 'transparent'; b.style.color = on ? '#F7FAFC' : '#16384A'; });
-      };
-      matBtns.forEach((b, k) => b.addEventListener('click', () => set(k)));
-    }
-
-    // ===== scroll engine =====
-    const nav = $('[data-nav]');
-    const bar = $('[data-progress]');
-    const body = document.body;
-    const hero = $('[data-hero]');
-    const navLinks = $$('[data-navlink]');
-    const heroHint = $('[data-hero-hint]');
-    const pars = $$('[data-par]');
-    const journey = $('[data-journey]');
-    const jchaps = journey ? $$('[data-jchap]', journey) : [];
-    const jfill = $('[data-jfill]');
-    const jindex = $('[data-jindex]');
-
-    const frame = () => {
-      const vh = window.innerHeight;
-      const scrolled = -body.getBoundingClientRect().top;
-      if (nav) {
-        if (scrolled > 40) { nav.style.background = 'rgba(247,250,252,0.82)'; nav.style.borderBottomColor = 'rgba(22,56,74,0.08)'; nav.style.backdropFilter = 'blur(14px) saturate(1.3)'; }
-        else { nav.style.background = 'rgba(247,250,252,0)'; nav.style.borderBottomColor = 'rgba(22,56,74,0)'; nav.style.backdropFilter = 'blur(0px)'; }
-      }
-      if (bar) { const h = body.scrollHeight - vh; bar.style.transform = `scaleX(${Math.min(1, h > 0 ? scrolled / h : 0)})`; }
-      revealCheck();
-      if (this._snUpdate) this._snUpdate();
-      if (hero) {
-        const hr = hero.getBoundingClientRect();
-        const hp = Math.min(1, Math.max(0, -hr.top / vh));
-        pars.forEach((p) => { const f = +p.dataset.par; p.style.transform = `translateY(${(hp * vh * f).toFixed(1)}px)`; });
-        if (heroHint) heroHint.style.opacity = hp > 0.08 ? '0' : '1';
-        this._scrollSpin = hp;
-      }
-      if (impact && !counted) { const ir = impact.getBoundingClientRect(); if (ir.top < vh * 0.8) runCount(); }
-      if (journey && jchaps.length) {
-        const r = journey.getBoundingClientRect();
-        const total = journey.offsetHeight - vh;
-        const p = Math.min(1, Math.max(0, -r.top / total));
-        const seg = 1 / jchaps.length;
-        jchaps.forEach((c, i) => {
-          const local = (p - i * seg) / seg;
-          let e;
-          if (local < 0 || local > 1) e = 0;
-          else if (local < 0.22) e = local / 0.22;
-          else if (local > 0.78) e = (1 - local) / 0.22;
-          else e = 1;
-          e = Math.max(0, Math.min(1, e));
-          const ty = local <= 0 ? 44 : local >= 1 ? -44 : (0.5 - local) * 52;
-          c.style.opacity = e.toFixed(3); c.style.filter = `blur(${((1 - e) * 10).toFixed(2)}px)`; c.style.transform = `translateY(${ty.toFixed(1)}px)`;
-        });
-        if (jfill) jfill.style.transform = `scaleY(${p.toFixed(3)})`;
-        if (jindex) { const a = Math.min(jchaps.length, Math.max(1, Math.floor(p * jchaps.length) + 1)); const lbl = String(a).padStart(2, '0'); if (jindex.textContent !== lbl) jindex.textContent = lbl; }
-      }
-    };
-    frame();
-    this._loop = setInterval(frame, 33);
-  }
-
-  _initThree(container) {
-    if (!container || typeof THREE === 'undefined') return;
-    try {
-      const w = container.clientWidth || window.innerWidth, h = container.clientHeight || window.innerHeight;
-      const scene = new THREE.Scene();
-      const cam = new THREE.PerspectiveCamera(50, w / h, 0.1, 100); cam.position.z = 4.4;
-      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-      renderer.setSize(w, h); renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
-      container.appendChild(renderer.domElement);
-      const group = new THREE.Group(); scene.add(group);
-      const wire = new THREE.Mesh(new THREE.IcosahedronGeometry(1.55, 1), new THREE.MeshBasicMaterial({ color: 0x4F9FD6, wireframe: true, transparent: true, opacity: 0.55 }));
-      const solid = new THREE.Mesh(new THREE.IcosahedronGeometry(1.5, 1), new THREE.MeshBasicMaterial({ color: 0xA6D2EE, transparent: true, opacity: 0.16 }));
-      const pts = new THREE.Points(new THREE.IcosahedronGeometry(1.72, 3), new THREE.PointsMaterial({ color: 0x5BB54A, size: 0.028, transparent: true, opacity: 0.85 }));
-      group.add(wire); group.add(solid); group.add(pts);
-      group.rotation.x = 0.3;
-      this._three = { scene, cam, renderer, group, container };
-
-      // drag to rotate
-      let down = false, lx = 0, ly = 0;
-      let velX = 0, velY = 0, rotX = 0.3, rotY = 0, hx = 0, hy = 0;
-      const hover = (e) => { if (down) return; const r = container.getBoundingClientRect(); hx = (e.clientX - r.left) / r.width - 0.5; hy = (e.clientY - r.top) / r.height - 0.5; };
-      container.addEventListener('mousemove', hover);
-      const dn = (e) => { down = true; const p = e.touches ? e.touches[0] : e; lx = p.clientX; ly = p.clientY; container.style.cursor = 'grabbing'; };
-      const mv = (e) => { if (!down) return; const p = e.touches ? e.touches[0] : e; velY = (p.clientX - lx) * 0.006; velX = (p.clientY - ly) * 0.006; rotY += velY; rotX += velX; lx = p.clientX; ly = p.clientY; };
-      const up = () => { down = false; container.style.cursor = 'grab'; };
-      container.addEventListener('mousedown', dn); window.addEventListener('mousemove', mv); window.addEventListener('mouseup', up);
-      container.addEventListener('touchstart', dn, { passive: true }); container.addEventListener('touchmove', mv, { passive: true }); container.addEventListener('touchend', up);
-      this._cleanup.push(() => { window.removeEventListener('mousemove', mv); window.removeEventListener('mouseup', up); });
-
-      const resize = () => { const W = container.clientWidth, H = container.clientHeight; if (!W || !H) return; cam.aspect = W / H; cam.updateProjectionMatrix(); renderer.setSize(W, H); };
-      window.addEventListener('resize', resize); this._cleanup.push(() => window.removeEventListener('resize', resize));
-
-      const animate = () => {
-        this._raf = requestAnimationFrame(animate);
-        if (!down) { velY *= 0.95; velX *= 0.95; rotY += 0.0024 + velY; rotX += velX; }
-        rotX = Math.max(-1.2, Math.min(1.2, rotX));
-        group.rotation.y = rotY + hx * 0.5; group.rotation.x = rotX + hy * 0.35;
-        const sp = this._scrollSpin || 0;
-        group.position.y = -sp * 1.6; group.scale.setScalar(1 - sp * 0.25);
-        renderer.render(scene, cam);
-      };
-      animate();
-    } catch (err) { /* WebGL unavailable — fallback orb shows */ }
-  }
-
-  componentWillUnmount() {
-    (this._cleanup || []).forEach((fn) => fn());
-    (this._timers || []).forEach((t) => clearTimeout(t));
-    if (this._loop) clearInterval(this._loop);
-    if (this._raf) cancelAnimationFrame(this._raf);
-    if (this._three && this._three.renderer) { try { this._three.renderer.dispose(); this._three.container.removeChild(this._three.renderer.domElement); } catch (e) {} }
-  }
-}
-</script>
-<style>
-#toTop{position:fixed;left:22px;bottom:22px;z-index:9700;width:46px;height:46px;border-radius:50%;border:none;background:#16384A;color:#fff;font-size:20px;cursor:pointer;opacity:0;visibility:hidden;transition:opacity .3s,transform .3s,background .3s;box-shadow:0 18px 40px -16px rgba(22,56,74,.6)}
-#toTop.show{opacity:1;visibility:visible}#toTop:hover{background:#4F9FD6;transform:translateY(-3px)}
-#chatBtn{position:fixed;left:22px;bottom:80px;z-index:9700;width:52px;height:52px;border-radius:50%;border:none;background:#4F9FD6;cursor:pointer;box-shadow:0 18px 40px -16px rgba(22,56,74,.6);display:flex;align-items:center;justify-content:center;transition:transform .3s,background .3s}
-#chatBtn:hover{transform:translateY(-3px);background:#16384A}
-#chatPanel{position:fixed;left:22px;bottom:144px;z-index:9700;width:300px;max-width:calc(100vw - 44px);background:#fff;border:1px solid rgba(22,56,74,.1);border-radius:18px;box-shadow:0 30px 70px -30px rgba(22,56,74,.6);overflow:hidden;opacity:0;visibility:hidden;transform:translateY(10px);transition:all .3s}
-#chatPanel.show{opacity:1;visibility:visible;transform:none}
-#chatPanel .hd{background:#16384A;color:#fff;padding:16px 18px;font-family:'Cormorant Garamond',serif;font-size:20px}
-#chatPanel .bd{padding:16px 18px;font-size:14px;color:#51697A}#chatPanel .bd a{display:block;margin-top:10px;background:#EAF4FB;color:#16384A;padding:11px 14px;border-radius:10px;font-weight:600;font-size:13px;text-decoration:none}
-</style>
-<button id="toTop" aria-label="Back to top">&#8593;</button>
-<button id="chatBtn" aria-label="Chat with us"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1 1 21 11.5z"/></svg></button>
-<div id="chatPanel"><div class="cw-hd"><span class="cw-dot"></span><div style="flex:1"><b>SustainAura Assistant</b><div class="cw-sub">Eco-friendly liners &middot; ask me anything</div></div></div><div class="cw-msgs" id="cbMsgs"></div><div class="cw-chips" id="cbChips"></div><form class="cw-input" id="cbForm"><input id="cbInput" type="text" autocomplete="off" placeholder="Ask about eco, sizes, shipping..."/><button type="submit" aria-label="Send">&#10148;</button></form></div>
-<script>(function(){var t=document.getElementById("toTop");addEventListener("scroll",function(){if(window.scrollY>400)t.classList.add("show");else t.classList.remove("show");},{passive:true});t.addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"});});var c=document.getElementById("chatBtn"),p=document.getElementById("chatPanel");c.addEventListener("click",function(){p.classList.toggle("show");});})();</script>
-<style>
-#chatPanel{width:330px}
-.cw-hd{background:#16384A;color:#fff;padding:15px 18px;display:flex;align-items:center;gap:11px}
-.cw-dot{width:9px;height:9px;border-radius:50%;background:#5BB54A;box-shadow:0 0 0 4px rgba(91,181,74,.25);flex:none}
-.cw-hd b{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:500;display:block;line-height:1.1}
-.cw-sub{font-size:11px;color:#9DB4C6;letter-spacing:.3px}
-.cw-msgs{height:248px;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:#F7FAFC}
-.cw-msg{max-width:86%;padding:10px 13px;border-radius:14px;font-size:13px;line-height:1.5}
-.cw-bot{align-self:flex-start;background:#fff;border:1px solid rgba(22,56,74,.1);color:#16384A;border-bottom-left-radius:4px}
-.cw-user{align-self:flex-end;background:#4F9FD6;color:#fff;border-bottom-right-radius:4px}
-.cw-msg a{color:#4F9FD6;font-weight:600}.cw-user a{color:#fff;text-decoration:underline}
-.cw-chips{display:flex;flex-wrap:wrap;gap:7px;padding:12px 14px 14px;border-top:1px solid rgba(22,56,74,.08);background:#fff}
-.cw-chip{background:#EAF4FB;color:#16384A;border:none;border-radius:100px;padding:8px 13px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .2s,color .2s}
-.cw-chip:hover{background:#4F9FD6;color:#fff}
-</style>
 <script>
 (function(){
-var msgs=document.getElementById("chatMsgs"),chips=document.getElementById("chatChips");
-if(!msgs||!chips)return;
-var SHOP="/shop",AMZ="https://a.co/d/1gs8ryW";
-function add(who,html){var d=document.createElement("div");d.className="cw-msg cw-"+who;d.innerHTML=html;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;}
-var KB={
-essential:"<b>Essential</b> is our lightest liner &mdash; a slim, quick-drying PEVA sheet, perfect for guest baths, rentals and dorms. <a href=\""+SHOP+"\">See Essential &rarr;</a>",
-premium:"<b>Premium</b> is our flagship mid-weight &mdash; the everyday balance of privacy, durability and a dead-straight hang. Most people pick this one. <a href=\""+SHOP+"\">See Premium &rarr;</a>",
-heavyduty:"<b>HeavyDuty</b> is our thickest, hotel-grade liner &mdash; heaviest hang, deepest folds, built to last for years. <a href=\""+SHOP+"\">See HeavyDuty &rarr;</a>",
-shipping:"Free shipping, a 30-night trial, and easy returns. Orders usually ship within 1&ndash;2 business days.",
-human:"Happy to help! Email <a href=\"mailto:support@sustainaura.com\">support@sustainaura.com</a> or use our <a href=\"/contact\">contact form</a>.",
-amazon:"Buy SustainAura liners on Amazon: <a href=\""+AMZ+"\" target=\"_blank\" rel=\"noreferrer\">Shop on Amazon &rarr;</a>"
-};
-var CHIPS=[["Essential","essential"],["Premium","premium"],["HeavyDuty","heavyduty"],["Shipping &amp; returns","shipping"],["Buy on Amazon","amazon"],["Talk to a human","human"]];
-function chip(label,key){var b=document.createElement("button");b.className="cw-chip";b.innerHTML=label;b.addEventListener("click",function(){add("user",label);setTimeout(function(){add("bot",KB[key]);},260);});return b;}
-add("bot","Hi! I am the SustainAura assistant. Which liner are you curious about?");
-CHIPS.forEach(function(c){chips.appendChild(chip(c[0],c[1]));});
-})();
-</script>
-<style>
-.cw-input{display:flex;gap:8px;padding:10px 12px;border-top:1px solid rgba(22,56,74,.08);background:#fff}
-.cw-input input{flex:1;min-width:0;border:1px solid rgba(22,56,74,.15);border-radius:100px;padding:9px 14px;font-family:inherit;font-size:13px;outline:none;color:#16384A}
-.cw-input input:focus{border-color:#4F9FD6}
-.cw-input button{border:none;background:#16384A;color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:13px;flex:none;transition:background .2s}
-.cw-input button:hover{background:#4F9FD6}
-.cw-chips{padding:12px 14px 8px}
-</style>
-<script>
-(function(){
-var msgs=document.getElementById("cbMsgs"),chips=document.getElementById("cbChips"),form=document.getElementById("cbForm"),input=document.getElementById("cbInput");
-if(!msgs||!form)return;
-var SHOP="/shop",AMZ="https://a.co/d/1gs8ryW";
-function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
-function add(who,html){var d=document.createElement("div");d.className="cw-msg cw-"+who;d.innerHTML=html;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;}
-var R={
-eco:"We are built around sustainability. Every SustainAura liner is <b>PVC-free</b> and made with <b>30% recycled PEVA</b> &mdash; a cleaner, chlorine-free alternative to vinyl that is kinder to your home and the planet. <a href=\""+SHOP+"\">Shop eco liners &rarr;</a>",
-material:"Our liners are made from <b>PEVA</b>, a chlorine- and PVC-free plastic, with 30% recycled content. No phthalates and no harsh chemical smell &mdash; safe for kids, pets and sensitive lungs.",
-recycled:"Yes! Each liner uses <b>30% recycled PEVA</b>, cutting waste and virgin plastic while staying fully waterproof and durable.",
-pvc:"100% <b>PVC-free</b>. PVC is the smelly, toxic vinyl most cheap liners use &mdash; we never use it.",
-essential:"<b>Essential</b> is our lightest liner &mdash; slim, quick-drying, and great for guest baths, rentals and dorms. <a href=\""+SHOP+"\">See Essential &rarr;</a>",
-premium:"<b>Premium</b> is our flagship mid-weight &mdash; the best balance of privacy, durability and a dead-straight hang. <a href=\""+SHOP+"\">See Premium &rarr;</a>",
-heavyduty:"<b>HeavyDuty</b> is our thickest, hotel-grade liner &mdash; heaviest hang, deepest folds, built to last for years. <a href=\""+SHOP+"\">See HeavyDuty &rarr;</a>",
-grades:"We make three weights: <b>Essential</b> (lightest), <b>Premium</b> (everyday flagship) and <b>HeavyDuty</b> (thickest, hotel-grade) &mdash; each in Clear, Frosty and White. <a href=\""+SHOP+"\">Compare them &rarr;</a>",
-size:"Standard size is a true <b>72 x 72 inch</b> cut with 12 reinforced grommets, fitting standard tubs and stalls. A weighted hem keeps it hanging dead straight.",
-shipping:"We offer <b>free shipping</b>, and orders usually leave within 1&ndash;2 business days.",
-returns:"Every liner comes with a <b>30-night trial</b> and easy returns &mdash; if it is not for you, send it back.",
-care:"Care is easy: wipe down or machine wash cold and hang to dry. The water-repellent surface dries in minutes and resists mildew.",
-mildew:"The breathable, water-repellent surface dries within minutes, so mildew never gets the damp it needs to grow.",
-odor:"No chemical smell &mdash; our PEVA is chlorine-free and PVC-free, so there is none of that new-shower-curtain plastic odor.",
-price:"Pricing varies by weight and finish &mdash; the easiest place to see current prices is Amazon: <a href=\""+AMZ+"\" target=\"_blank\" rel=\"noreferrer\">Shop on Amazon &rarr;</a>",
-amazon:"You can buy SustainAura liners on Amazon: <a href=\""+AMZ+"\" target=\"_blank\" rel=\"noreferrer\">Shop on Amazon &rarr;</a>",
-contact:"Reach a human anytime at <a href=\"mailto:support@sustainaura.com\">support@sustainaura.com</a> or through our <a href=\"/contact\">contact form</a>.",
-hi:"Hi there! I can tell you about our eco-friendly liners, materials, sizes, shipping, returns and care. What would you like to know?",
-thanks:"You are welcome! Anything else I can help with?"
-};
-var RULES=[[/eco|environment|sustain|green|planet|earth|friendly|conscious/,"eco"],[/recycl/,"recycled"],[/pvc|vinyl/,"pvc"],[/peva|material|made of|made from|fabric|what is it made/,"material"],[/essential/,"essential"],[/premium/,"premium"],[/heavy|thick|durab|strong/,"heavyduty"],[/grade|weight|differ|compare|which one|which liner|option|type/,"grades"],[/size|dimension|fit|72|tub|stall|measure|grommet|long|wide/,"size"],[/ship|deliver|postage|arrive|how long/,"shipping"],[/return|refund|trial|guarantee|warranty|money back/,"returns"],[/clean|wash|care|maintain|launder/,"care"],[/mildew|mold|mould/,"mildew"],[/smell|odor|odour|toxic|chemical|fume|safe/,"odor"],[/price|cost|how much|expensive|cheap|\$/,"price"],[/buy|order|purchase|amazon|where can i/,"amazon"],[/contact|human|email|support|help|agent|talk|phone|reach/,"contact"],[/thank/,"thanks"],[/^(hi|hello|hey|yo|hiya|howdy|good)/,"hi"]];
-function answer(q){var s=q.toLowerCase();for(var i=0;i<RULES.length;i++){if(RULES[i][0].test(s))return R[RULES[i][1]];}return "Great question! I can help with our liners, materials and sustainability, sizing, shipping, returns and care. Try asking about <b>eco-friendly</b>, <b>sizes</b> or <b>shipping</b> &mdash; or email <a href=\"mailto:support@sustainaura.com\">support@sustainaura.com</a>.";}
-function reply(q){setTimeout(function(){add("bot",answer(q));},300);}
-var CH=[["Eco-friendly?","is it eco friendly"],["The 3 weights","what grades and weights"],["Sizes","what size are the liners"],["Shipping &amp; returns","shipping and returns"],["Buy on Amazon","buy on amazon"]];
-CH.forEach(function(c){var b=document.createElement("button");b.className="cw-chip";b.innerHTML=c[0];b.addEventListener("click",function(){add("user",c[0]);reply(c[1]);});chips.appendChild(b);});
-form.addEventListener("submit",function(e){e.preventDefault();var q=input.value.trim();if(!q)return;add("user",esc(q));input.value="";reply(q);});
-add("bot","Hi! I am the SustainAura assistant &mdash; ask me anything about our eco-friendly liners, sizes, shipping or care.");
+var $=function(s,r){return (r||document).querySelector(s);};
+var $$=function(s,r){return [].slice.call((r||document).querySelectorAll(s));};
+$$('[data-reveal],[data-hero-t],[data-hi],[data-jchap],[data-mat],[data-impact]').forEach(function(el){el.style.opacity='1';el.style.transform='none';el.style.filter='none';});
+$$('[data-count]').forEach(function(el){var to=el.getAttribute('data-to');if(to)el.textContent=to+(el.getAttribute('data-suffix')||'');});
+$$('[data-ml-tox],[data-ml-odor],[data-ml-rec],[data-ml-feel]').forEach(function(b){var w=b.getAttribute('data-to');b.style.width=(w?w:'72')+'%';});
+var hamb=$('[data-hamb]'),navwrap=$('[data-navwrap]');
+if(hamb&&navwrap){hamb.addEventListener('click',function(){navwrap.dataset.open=navwrap.dataset.open==='1'?'0':'1';});navwrap.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){navwrap.dataset.open='0';});});}
+var nav=$('[data-nav]');
+addEventListener('scroll',function(){var y=window.scrollY||window.pageYOffset||0;if(nav){if(y>40){nav.style.background='rgba(247,250,252,0.92)';nav.style.borderBottomColor='rgba(22,56,74,0.08)';nav.style.backdropFilter='blur(14px) saturate(1.3)';}else{nav.style.background='rgba(247,250,252,0)';nav.style.borderBottomColor='rgba(22,56,74,0)';nav.style.backdropFilter='none';}}},{passive:true});
+$$('[data-faq]').forEach(function(item){var q=$('[data-faq-q]',item),a=$('[data-faq-a]',item),ic=$('[data-faq-ic]',item);if(!q||!a)return;q.addEventListener('click',function(){var open=a.style.maxHeight&&a.style.maxHeight!=='0px';$$('[data-faq]').forEach(function(o){var oa=$('[data-faq-a]',o),oi=$('[data-faq-ic]',o);if(oa)oa.style.maxHeight='0px';if(oi){oi.textContent='+';oi.style.transform='rotate(0deg)';}});if(!open){a.style.maxHeight=a.scrollHeight+'px';if(ic){ic.textContent='-';ic.style.transform='rotate(180deg)';}}});});
 })();
 </script>
 </body>
