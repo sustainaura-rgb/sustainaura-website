@@ -100,6 +100,13 @@ html{scrollbar-color:#7Fa8c8 #eef4f8}
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid #4F9FD6;outline-offset:3px;border-radius:4px}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
 </style>
+<style id="shop-reveal">
+.lg-card.lg-in{opacity:1 !important;transform:none !important}
+.lg-skel{background:#e7eef4}
+.lg-skel::after{content:'';position:absolute;inset:0;z-index:3;background:linear-gradient(100deg,transparent 20%,rgba(255,255,255,.6) 50%,transparent 80%);transform:translateX(-100%);animation:lgshim 1.3s infinite}
+@keyframes lgshim{to{transform:translateX(100%)}}
+@media(prefers-reduced-motion:reduce){.lg-card{opacity:1 !important;transform:none !important}}
+</style>
 </head>
 <body>
 <div data-screen-label="Aquaveil — Liners" style="font-family:'Manrope',sans-serif;color:#16384A;background:#F7FAFC;overflow-x:clip;position:relative">
@@ -302,6 +309,12 @@ PRODUCTS.forEach(function(p,i){
   grid.appendChild(art);
 });
 var cards=$$(".lg-card",grid);
+(function(){var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+cards.forEach(function(c,ci){var media=c.querySelector('.lg-card__media'),img=c.querySelector('.lg-card__img');
+if(media&&img){media.classList.add('lg-skel');img.style.opacity='0';img.style.transition='opacity .55s ease';var done=function(){img.style.opacity='1';media.classList.remove('lg-skel');};if(img.complete&&img.naturalWidth)done();else{img.addEventListener('load',done);img.addEventListener('error',done);}}
+if(reduce){c.classList.add('lg-in');return;}
+c.style.opacity='0';c.style.transform='translateY(28px)';c.style.transition='opacity .7s ease '+(ci*0.05).toFixed(2)+'s,transform .7s cubic-bezier(.16,.84,.44,1) '+(ci*0.05).toFixed(2)+'s';});
+if(!reduce&&'IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('lg-in');io.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -8% 0px'});cards.forEach(function(c){io.observe(c);});setTimeout(function(){cards.forEach(function(c){c.classList.add('lg-in');});},1500);}else{cards.forEach(function(c){c.classList.add('lg-in');});}})();
 cards.forEach(function(card){
   var tilt=card.querySelector(".lg-card__tilt"), inner=card.querySelector(".lg-card__inner"), quick=card.querySelector(".lg-quick"), swatch=card.querySelector(".lg-swatch"), media=card.querySelector(".lg-card__media");
   var glow=FIN_GLOW[card.dataset.finish]||"79,159,214";

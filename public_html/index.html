@@ -189,6 +189,17 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .scrollcue i{width:1px;height:44px;background:linear-gradient(#fff,rgba(255,255,255,0));transform-origin:top;animation:scq 1.9s ease-in-out infinite}
 @keyframes scq{0%,100%{transform:scaleY(.35);opacity:.35}50%{transform:scaleY(1);opacity:1}}
 </style>
+<style id="home-faq">
+@keyframes kbzoom{from{transform:scale(1)}to{transform:scale(1.09)}}
+.faq-sec{background:#F7FAFC;padding:clamp(70px,10vw,120px) clamp(20px,5vw,64px)}
+.faq-wrap{max-width:760px;margin:0 auto}
+.faq-item{border-bottom:1px solid rgba(22,56,74,.1)}
+.faq-q{width:100%;text-align:left;background:none;border:none;cursor:pointer;padding:22px 0;font-family:'Manrope',sans-serif;font-size:clamp(15.5px,1.7vw,18px);font-weight:600;color:#16384A;display:flex;justify-content:space-between;align-items:center;gap:18px}
+.faq-ic{flex:none;width:28px;height:28px;border-radius:50%;border:1px solid rgba(22,56,74,.2);display:grid;place-items:center;font-size:18px;line-height:1;color:#4F9FD6;transition:transform .35s ease,background .35s ease,color .35s ease}
+.faq-item.open .faq-ic{transform:rotate(45deg);background:#16384A;color:#fff;border-color:#16384A}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.16,.84,.44,1)}
+.faq-a p{margin:0 0 22px;font-size:15px;line-height:1.72;color:#51697A}
+</style>
 </head>
 <body>
 
@@ -307,7 +318,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
       </div>
       <div data-scn-stage style="position:relative;perspective:1200px">
         <div data-scn-tilt style="position:relative;width:100%;height:100%;min-height:clamp(360px,46vw,520px);border-radius:22px;overflow:hidden;transform-style:preserve-3d;transition:transform .4s cubic-bezier(.16,.84,.44,1);box-shadow:0 30px 70px -34px rgba(14,38,34,.5)">
-          <img data-scn-img src="/bathroom.jpg" alt="Bathroom scenario" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 45%;transition:opacity .4s ease"/>
+          <img data-scn-img src="/bathroom.jpg" alt="Bathroom scenario" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:kbzoom 18s ease-in-out infinite alternate;object-position:center 45%;transition:opacity .4s ease"/>
           <div data-scn-tint style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(62,134,124,.34),rgba(14,38,34,.5));transition:background .7s ease;mix-blend-mode:multiply"></div>
           <div data-scn-wipe style="position:absolute;inset:0;background:linear-gradient(180deg,#EAF4FB,#A6D2EE);transform:translateX(-101%);pointer-events:none;z-index:4"></div>
           <div style="position:absolute;left:0;right:0;bottom:0;z-index:5;padding:clamp(22px,3vw,38px);background:linear-gradient(0deg,rgba(14,38,34,.82),rgba(14,38,34,.2) 70%,transparent)">
@@ -464,6 +475,17 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   requestAnimationFrame(loop);
 })();
 </script>
+  <section class="faq-sec">
+  <div class="faq-wrap">
+    <div style="text-align:center;margin-bottom:clamp(34px,5vw,54px)">
+      <div class="eyebrow" style="justify-content:center">Good to know</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(32px,4.6vw,56px);margin:10px 0 0;color:#16384A">Questions, <span style="font-style:italic;color:#4F9FD6">answered.</span></h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item"><button class="faq-q" type="button">Are SustainAura liners really PVC-free and non-toxic?<span class="faq-ic">+</span></button><div class="faq-a"><p>Yes &mdash; every liner is chlorine- and PVC-free PEVA with 30% recycled content. No phthalates, no harsh plastic smell, gentle enough for kids, pets and sensitive lungs.</p></div></div><div class="faq-item"><button class="faq-q" type="button">What size are they &mdash; will they fit my tub?<span class="faq-ic">+</span></button><div class="faq-a"><p>Standard size is a true 72&quot; x 72&quot; cut with 12 reinforced grommets, fitting standard tubs and stalls. A weighted hem keeps it hanging dead straight.</p></div></div><div class="faq-item"><button class="faq-q" type="button">Do they actually stop mildew and the clingy feeling?<span class="faq-ic">+</span></button><div class="faq-a"><p>The breathable, water-repellent surface dries within minutes (so mildew never gets the damp it needs), and the weighted hem stops the liner clinging to you mid-shower.</p></div></div><div class="faq-item"><button class="faq-q" type="button">What&rsquo;s the difference between Essential, Premium and HeavyDuty?<span class="faq-ic">+</span></button><div class="faq-a"><p>Essential is our lightest (great for guest baths and rentals), Premium is the everyday flagship balance, and HeavyDuty is the thickest, hotel-grade liner. Each comes in Clear, Frosty and White.</p></div></div><div class="faq-item"><button class="faq-q" type="button">How do I clean and care for it?<span class="faq-ic">+</span></button><div class="faq-a"><p>Easy &mdash; wipe down or machine wash cold and hang to dry. The water-repellent surface dries fast and resists buildup.</p></div></div><div class="faq-item"><button class="faq-q" type="button">What about shipping and returns?<span class="faq-ic">+</span></button><div class="faq-a"><p>Free shipping on every order, plus a 30-night trial &mdash; if it&rsquo;s not for you, send it back.</p></div></div>
+    </div>
+  </div>
+</section>
   <section class="trust-band">
   <div class="trust-grid">
     <div class="trust-item"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13C4 7 9 4 20 4c0 11-3 16-9 16z"/><path d="M4 13c4-1 8-4 11-8"/></svg></div><h4>PVC-free &amp; non-toxic</h4><p>No chlorine, no plastic smell</p></div>
@@ -603,6 +625,9 @@ CH.forEach(function(c){var b=document.createElement("button");b.className="cw-ch
 form.addEventListener("submit",function(e){e.preventDefault();var q=input.value.trim();if(!q)return;add("user",esc(q));input.value="";reply(q);});
 add("bot","Hi! I am the SustainAura assistant &mdash; ask me anything about our eco-friendly liners, sizes, shipping or care.");
 })();
+</script>
+<script>
+(function(){var qs=document.querySelectorAll('.faq-item .faq-q');qs.forEach(function(q){q.addEventListener('click',function(){var it=q.parentElement,a=it.querySelector('.faq-a'),open=it.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(o){o.classList.remove('open');var oa=o.querySelector('.faq-a');if(oa)oa.style.maxHeight='0px';});if(!open){it.classList.add('open');a.style.maxHeight=a.scrollHeight+'px';}});});})();
 </script>
 </body>
 </html>
