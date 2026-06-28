@@ -1,7 +1,26 @@
+RewriteEngine On
+
+# Force HTTPS and drop www
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Redirect old page URLs to the new clean ones
 Redirect 301 /liners-aquaveil.html /shop/
 Redirect 301 /contact-aquaveil.html /contact/
 Redirect 301 /about-aquaveil.html /about/
+
 DirectoryIndex index.html
+
+# HTML always revalidates so updates show immediately
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# Cache static assets (images/css/js)
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresByType image/jpeg "access plus 30 days"
