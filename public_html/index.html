@@ -166,6 +166,29 @@ a{color:inherit;text-decoration:none}
 #chatPanel .hd{background:var(--ink);color:#fff;padding:16px 18px;font-family:'Cormorant Garamond',serif;font-size:20px}
 #chatPanel .bd{padding:16px 18px;font-size:14px;color:var(--muted)}#chatPanel .bd a{display:block;margin-top:10px;background:#EAF4FB;color:var(--ink);padding:11px 14px;border-radius:10px;font-weight:600;font-size:13px}
 </style>
+<style id="polish">
+html{scrollbar-color:#7Fa8c8 #eef4f8}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:#eef4f8}
+::-webkit-scrollbar-thumb{background:#9DB4C6;border-radius:6px;border:2px solid #eef4f8}
+::-webkit-scrollbar-thumb:hover{background:#4F9FD6}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid #4F9FD6;outline-offset:3px;border-radius:4px}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
+</style>
+<style id="home-add">
+.trust-band{background:#fff;border-top:1px solid rgba(22,56,74,.08);padding:clamp(44px,6vw,72px) clamp(20px,5vw,64px)}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(18px,2.6vw,36px);max-width:1100px;margin:0 auto}
+.trust-item{text-align:center}
+.trust-item .ic{width:50px;height:50px;margin:0 auto 14px;border-radius:15px;background:#EAF4FB;display:grid;place-items:center;color:#4F9FD6;transition:transform .35s ease,background .35s ease}
+.trust-item:hover .ic{transform:translateY(-4px);background:#dcecf8}
+.trust-item h4{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:21px;margin:0 0 4px;color:#16384A}
+.trust-item p{margin:0;font-size:13px;color:#51697A}
+@media(max-width:680px){.trust-grid{grid-template-columns:repeat(2,1fr);gap:28px}}
+.scrollcue{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:5;display:flex;flex-direction:column;align-items:center;gap:7px;color:#fff;pointer-events:none}
+.scrollcue span{font-size:10px;letter-spacing:3px;text-transform:uppercase;opacity:.8}
+.scrollcue i{width:1px;height:44px;background:linear-gradient(#fff,rgba(255,255,255,0));transform-origin:top;animation:scq 1.9s ease-in-out infinite}
+@keyframes scq{0%,100%{transform:scaleY(.35);opacity:.35}50%{transform:scaleY(1);opacity:1}}
+</style>
 </head>
 <body>
 
@@ -196,6 +219,7 @@ a{color:inherit;text-decoration:none}
     </div>
   </div>
   <a class="hero-card" href="/shop" aria-label="View the liners"><img loading="lazy" decoding="async" src="/images/products/gallery-hooks.jpg" alt="SustainAura clear PEVA liner"/><span class="tag">View the liners →</span></a>
+<div class="scrollcue" aria-hidden="true"><span>Scroll</span><i></i></div>
 </header>
 
 <!-- MARQUEE -->
@@ -440,6 +464,14 @@ a{color:inherit;text-decoration:none}
   requestAnimationFrame(loop);
 })();
 </script>
+  <section class="trust-band">
+  <div class="trust-grid">
+    <div class="trust-item"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13C4 7 9 4 20 4c0 11-3 16-9 16z"/><path d="M4 13c4-1 8-4 11-8"/></svg></div><h4>PVC-free &amp; non-toxic</h4><p>No chlorine, no plastic smell</p></div>
+    <div class="trust-item"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l-3 1 1-3M17 7l3-1-1 3M5.5 15a7 7 0 0 1 9-9M18.5 9a7 7 0 0 1-9 9"/></svg></div><h4>30% recycled PEVA</h4><p>Kinder to the planet</p></div>
+    <div class="trust-item"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg></div><h4>Free shipping</h4><p>On every order</p></div>
+    <div class="trust-item"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.6-3 8.6-7 9.8C8 19.6 5 15.6 5 11V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></div><h4>30-night trial</h4><p>Love it or return it</p></div>
+  </div>
+</section>
   <footer class="footer">
   <div class="wrap"><div class="footer-grid">
     <div class="footer-brand"><div class="logo"><img src="/SustainAura.png" alt="SustainAura"/> SustainAura</div>
