@@ -54,6 +54,12 @@ html{scrollbar-color:#7Fa8c8 #eef4f8}
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid #4F9FD6;outline-offset:3px;border-radius:4px}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
 </style>
+<style id="pgfx">
+@keyframes pgfadein{from{opacity:0}to{opacity:1}}
+body{animation:pgfadein .55s ease both}
+body.pg-leaving{opacity:0 !important;transition:opacity .32s ease;animation:none}
+@media(prefers-reduced-motion:reduce){body{animation:none}body.pg-leaving{transition:none}}
+</style>
 </head>
 <body>
 <div data-screen-label="Aquaveil — Contact" style="font-family:'Manrope',sans-serif;color:#16384A;background:#F7FAFC;overflow-x:clip;position:relative">
@@ -239,6 +245,23 @@ var reset=$('[data-reset]');if(reset)reset.addEventListener('click',function(){i
 <script>
 function initThree(container){if(!container||typeof THREE==='undefined')return;try{var w=container.clientWidth||600,h=container.clientHeight||600;var scene=new THREE.Scene();var cam=new THREE.PerspectiveCamera(50,w/h,0.1,100);cam.position.z=5;var renderer=new THREE.WebGLRenderer({alpha:true,antialias:true});renderer.setSize(w,h);renderer.setPixelRatio(Math.min(2,window.devicePixelRatio||1));container.appendChild(renderer.domElement);var group=new THREE.Group();scene.add(group);var knot=new THREE.Mesh(new THREE.TorusKnotGeometry(1.3,0.34,120,18),new THREE.MeshBasicMaterial({color:0x3E867C,wireframe:true,transparent:true,opacity:0.4}));var pts=new THREE.Points(new THREE.IcosahedronGeometry(2.1,3),new THREE.PointsMaterial({color:0x9BC8C1,size:0.03,transparent:true,opacity:0.7}));group.add(knot);group.add(pts);window.addEventListener('resize',function(){var W=container.clientWidth,H=container.clientHeight;if(!W||!H)return;cam.aspect=W/H;cam.updateProjectionMatrix();renderer.setSize(W,H);});(function animate(){requestAnimationFrame(animate);knot.rotation.x+=0.004;knot.rotation.y+=0.006;pts.rotation.y-=0.0016;renderer.render(scene,cam);})();}catch(err){}}
 (function(){var el=document.querySelector('[data-three]');if(!el)return;el.style.pointerEvents='auto';var t=0,iv=setInterval(function(){if(typeof THREE!=='undefined'){clearInterval(iv);initThree(el);}else if(++t>120){clearInterval(iv);}},50);})();
+</script>
+<script id="pgfx-js">
+(function(){
+ document.addEventListener('click',function(e){
+  if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button!==0)return;
+  var a=e.target.closest?e.target.closest('a'):null;if(!a)return;
+  var href=a.getAttribute('href');if(!href)return;
+  if(a.target==='_blank'||a.hasAttribute('download'))return;
+  if(href[0]==='#'||href.indexOf('mailto:')===0||href.indexOf('tel:')===0)return;
+  var url;try{url=new URL(a.href);}catch(_){return;}
+  if(url.origin!==location.origin)return;
+  if(url.pathname===location.pathname)return;
+  e.preventDefault();document.body.classList.add('pg-leaving');
+  setTimeout(function(){location.href=a.href;},310);
+ },false);
+ window.addEventListener('pageshow',function(ev){if(ev.persisted)document.body.classList.remove('pg-leaving');});
+})();
 </script>
 </body>
 </html>

@@ -107,6 +107,12 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 @keyframes lgshim{to{transform:translateX(100%)}}
 @media(prefers-reduced-motion:reduce){.lg-card{opacity:1 !important;transform:none !important}}
 </style>
+<style id="pgfx">
+@keyframes pgfadein{from{opacity:0}to{opacity:1}}
+body{animation:pgfadein .55s ease both}
+body.pg-leaving{opacity:0 !important;transition:opacity .32s ease;animation:none}
+@media(prefers-reduced-motion:reduce){body{animation:none}body.pg-leaving{transition:none}}
+</style>
 </head>
 <body>
 <div data-screen-label="Aquaveil — Liners" style="font-family:'Manrope',sans-serif;color:#16384A;background:#F7FAFC;overflow-x:clip;position:relative">
@@ -461,5 +467,22 @@ add("bot","Hi! I am the SustainAura assistant &mdash; ask me anything about our 
 }
 </style>
 <script>(function(){var h=document.querySelector('[data-hamb]'),w=document.querySelector('[data-navwrap]');if(h&&w){h.addEventListener('click',function(){w.dataset.open=w.dataset.open==='1'?'0':'1';});w.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){w.dataset.open='0';});});}})();</script>
+<script id="pgfx-js">
+(function(){
+ document.addEventListener('click',function(e){
+  if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button!==0)return;
+  var a=e.target.closest?e.target.closest('a'):null;if(!a)return;
+  var href=a.getAttribute('href');if(!href)return;
+  if(a.target==='_blank'||a.hasAttribute('download'))return;
+  if(href[0]==='#'||href.indexOf('mailto:')===0||href.indexOf('tel:')===0)return;
+  var url;try{url=new URL(a.href);}catch(_){return;}
+  if(url.origin!==location.origin)return;
+  if(url.pathname===location.pathname)return;
+  e.preventDefault();document.body.classList.add('pg-leaving');
+  setTimeout(function(){location.href=a.href;},310);
+ },false);
+ window.addEventListener('pageshow',function(ev){if(ev.persisted)document.body.classList.remove('pg-leaving');});
+})();
+</script>
 </body>
 </html>

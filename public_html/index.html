@@ -200,6 +200,12 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .faq-a{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.16,.84,.44,1)}
 .faq-a p{margin:0 0 22px;font-size:15px;line-height:1.72;color:#51697A}
 </style>
+<style id="pgfx">
+@keyframes pgfadein{from{opacity:0}to{opacity:1}}
+body{animation:pgfadein .55s ease both}
+body.pg-leaving{opacity:0 !important;transition:opacity .32s ease;animation:none}
+@media(prefers-reduced-motion:reduce){body{animation:none}body.pg-leaving{transition:none}}
+</style>
 </head>
 <body>
 
@@ -628,6 +634,23 @@ add("bot","Hi! I am the SustainAura assistant &mdash; ask me anything about our 
 </script>
 <script>
 (function(){var qs=document.querySelectorAll('.faq-item .faq-q');qs.forEach(function(q){q.addEventListener('click',function(){var it=q.parentElement,a=it.querySelector('.faq-a'),open=it.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(o){o.classList.remove('open');var oa=o.querySelector('.faq-a');if(oa)oa.style.maxHeight='0px';});if(!open){it.classList.add('open');a.style.maxHeight=a.scrollHeight+'px';}});});})();
+</script>
+<script id="pgfx-js">
+(function(){
+ document.addEventListener('click',function(e){
+  if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button!==0)return;
+  var a=e.target.closest?e.target.closest('a'):null;if(!a)return;
+  var href=a.getAttribute('href');if(!href)return;
+  if(a.target==='_blank'||a.hasAttribute('download'))return;
+  if(href[0]==='#'||href.indexOf('mailto:')===0||href.indexOf('tel:')===0)return;
+  var url;try{url=new URL(a.href);}catch(_){return;}
+  if(url.origin!==location.origin)return;
+  if(url.pathname===location.pathname)return;
+  e.preventDefault();document.body.classList.add('pg-leaving');
+  setTimeout(function(){location.href=a.href;},310);
+ },false);
+ window.addEventListener('pageshow',function(ev){if(ev.persisted)document.body.classList.remove('pg-leaving');});
+})();
 </script>
 </body>
 </html>
