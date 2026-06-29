@@ -198,6 +198,16 @@ body{animation:pgfadein .55s ease both}
 body.pg-leaving{opacity:0 !important;transition:opacity .32s ease;animation:none}
 @media(prefers-reduced-motion:reduce){body{animation:none}body.pg-leaving{transition:none}}
 </style>
+<style id="elevate-css">
+.elev-btn{position:relative;overflow:hidden}
+.elev-btn:hover{transform:translateY(-3px)}
+.elev-btn::after{content:'';position:absolute;top:0;left:-130%;width:55%;height:100%;background:linear-gradient(115deg,transparent,rgba(255,255,255,.38),transparent);transform:skewX(-18deg);transition:left .6s ease;pointer-events:none;z-index:1}
+.elev-btn:hover::after{left:150%}
+.elev-nav{position:relative}
+.elev-nav::after{content:'';position:absolute;left:0;right:0;bottom:-4px;height:1.5px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.16,.84,.44,1);opacity:.75;pointer-events:none}
+.elev-nav:hover::after{transform:scaleX(1)}
+@media(prefers-reduced-motion:reduce){.elev-btn:hover{transform:none}.elev-btn::after{display:none}.elev-nav::after{transition:none}}
+</style>
 </head>
 <body>
 
@@ -628,6 +638,47 @@ add("bot","Hi! I am the SustainAura assistant &mdash; ask me anything about our 
   setTimeout(function(){location.href=a.href;},310);
  },false);
  window.addEventListener('pageshow',function(ev){if(ev.persisted)document.body.classList.remove('pg-leaving');});
+})();
+</script>
+<script id="elevate-js">
+(function(){
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+  document.querySelectorAll('[data-navlink]').forEach(function(a){ if(!a.querySelector('img')) a.classList.add('elev-nav'); });
+  if(reduce) return;
+  var ctas=[];
+  document.querySelectorAll('a[style],button[style]').forEach(function(el){
+    var s=el.getAttribute('style')||'';
+    if(s.indexOf('border-radius:100px')>-1 && s.indexOf('letter-spacing')>-1) ctas.push(el);
+  });
+  ctas.forEach(function(el){
+    el.classList.add('elev-btn');
+    var tr=el.style.transition||'';
+    if(tr.indexOf('transform')===-1) el.style.transition=(tr?tr+',':'')+'transform .35s cubic-bezier(.16,.84,.44,1)';
+    el.addEventListener('mousemove',function(e){
+      var r=el.getBoundingClientRect(), mx=e.clientX-(r.left+r.width/2), my=e.clientY-(r.top+r.height/2);
+      el.style.transform='translate('+(mx*0.26).toFixed(1)+'px,'+(my*0.26-3).toFixed(1)+'px)';
+    });
+    el.addEventListener('mouseleave',function(){ el.style.transform=''; });
+  });
+  var paras=[].slice.call(document.querySelectorAll('[data-three],[data-grasslogo]'));
+  if(paras.length){
+    var tx=0,ty=0,cx=0,cy=0,running=false;
+    window.addEventListener('mousemove',function(e){
+      tx=(e.clientX/window.innerWidth-.5); ty=(e.clientY/window.innerHeight-.5);
+      if(!running){running=true;requestAnimationFrame(loop);}
+    });
+    function loop(){
+      cx+=(tx-cx)*.06; cy+=(ty-cy)*.06;
+      for(var i=0;i<paras.length;i++){ var el=paras[i], amt=el.hasAttribute('data-grasslogo')?13:22; el.style.translate=(cx*amt).toFixed(2)+'px '+(cy*amt).toFixed(2)+'px'; }
+      if(Math.abs(tx-cx)>.0005||Math.abs(ty-cy)>.0005){requestAnimationFrame(loop);} else {running=false;}
+    }
+  }
+  var cfNext=document.querySelector('[data-cf-next]'), cfStage=document.querySelector('[data-cf-stage]')||document.querySelector('[data-cf-wrap]');
+  if(cfNext&&cfStage){
+    var t=setInterval(function(){cfNext.click();},4500);
+    cfStage.addEventListener('mouseenter',function(){clearInterval(t);t=0;});
+    cfStage.addEventListener('mouseleave',function(){if(!t)t=setInterval(function(){cfNext.click();},4500);});
+  }
 })();
 </script>
 </body>
