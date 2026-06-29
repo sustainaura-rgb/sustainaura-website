@@ -121,6 +121,8 @@ body.pg-leaving{opacity:0 !important;transition:opacity .32s ease;animation:none
 .elev-nav{position:relative}
 .elev-nav::after{content:'';position:absolute;left:0;right:0;bottom:-4px;height:1.5px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.16,.84,.44,1);opacity:.75;pointer-events:none}
 .elev-nav:hover::after{transform:scaleX(1)}
+.elev-ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.42);transform:translate(-50%,-50%) scale(0);pointer-events:none;z-index:2;animation:elevripple .65s ease-out forwards}
+@keyframes elevripple{to{transform:translate(-50%,-50%) scale(1);opacity:0}}
 @media(prefers-reduced-motion:reduce){.elev-btn:hover{transform:none}.elev-btn::after{display:none}.elev-nav::after{transition:none}}
 </style>
 </head>
@@ -512,7 +514,7 @@ add("bot","Hi! I am the SustainAura assistant &mdash; ask me anything about our 
       var r=el.getBoundingClientRect(), mx=e.clientX-(r.left+r.width/2), my=e.clientY-(r.top+r.height/2);
       el.style.transform='translate('+(mx*0.26).toFixed(1)+'px,'+(my*0.26-3).toFixed(1)+'px)';
     });
-    el.addEventListener('mouseleave',function(){ el.style.transform=''; });
+    el.addEventListener('mouseleave',function(){ el.style.transform=''; });el.addEventListener('click',function(e){var r=el.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2,sp=document.createElement('span');sp.className='elev-ripple';sp.style.width=sp.style.height=sz+'px';sp.style.left=(e.clientX-r.left)+'px';sp.style.top=(e.clientY-r.top)+'px';el.appendChild(sp);setTimeout(function(){sp.parentNode&&sp.parentNode.removeChild(sp);},650);});
   });
   var paras=[].slice.call(document.querySelectorAll('[data-three],[data-grasslogo]'));
   if(paras.length){
