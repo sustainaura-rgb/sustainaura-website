@@ -70,6 +70,16 @@ body.pg-leaving{opacity:0 !important;transition:opacity .32s ease;animation:none
 @media(prefers-reduced-motion:reduce){body{animation:none}body.pg-leaving{transition:none}}
 </style>
 <style id="stats-fix">@media(max-width:900px){[data-stats]{grid-template-columns:repeat(2,1fr) !important}}</style>
+<style id="impact-fx">
+@keyframes grasssway{0%{transform:scale(1.05) translate(-1.5%,0)}100%{transform:scale(1.09) translate(1.5%,-1.5%)}}
+@media(min-width:1024px){
+  [data-impactgrid]{flex-direction:row !important;gap:clamp(60px,8vw,150px) !important;align-items:center !important}
+  [data-impactlogo]{width:auto !important;justify-content:flex-end !important}
+  [data-grasslogo]{width:clamp(360px,34vw,520px) !important}
+}
+@media(max-width:420px){[data-statgrid]{gap:26px 30px !important}}
+@media(prefers-reduced-motion:reduce){[data-grasslogo] img{animation:none !important}}
+</style>
 </head>
 <body>
 <div data-screen-label="SustainAura — About" style="font-family:'Manrope',sans-serif;color:#16384A;background:#F7FAFC;overflow-x:clip;position:relative">
@@ -158,24 +168,18 @@ body.pg-leaving{opacity:0 !important;transition:opacity .32s ease;animation:none
 
 
   <!-- IMPACT STATS (count-up) -->
-  <section id="s-impact" data-impact style="padding:clamp(80px,12vw,150px) clamp(20px,5vw,64px);max-width:1320px;margin:0 auto">
-    <h2 data-reveal style="opacity:0;transform:translateY(30px);filter:blur(6px);transition:opacity .9s ease,transform .9s ease,filter .9s ease;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(34px,5vw,64px);margin:0 0 60px;text-align:center;letter-spacing:-.5px">Small choices, <span style="font-style:italic;color:#4F9FD6">lasting impact.</span></h2>
-    <div data-stats style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(22,56,74,.1);border:1px solid rgba(22,56,74,.1);border-radius:18px;overflow:hidden">
-      <div data-reveal style="opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease;background:#F7FAFC;padding:46px 32px;text-align:center">
-        <div data-count data-to="100" data-suffix="%" style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(56px,7vw,88px);line-height:1;color:#16384A">0%</div>
-        <div style="font-size:13px;letter-spacing:1px;color:#51697A;margin-top:12px">Chlorine-free material</div>
+  <section id="s-impact" data-impact style="background:radial-gradient(120% 120% at 82% 8%,#15281d 0%,#0b130e 55%,#070b08 100%);color:#fff;padding:clamp(64px,10vw,128px) clamp(20px,5vw,64px);border-top:1px solid rgba(255,255,255,.08);overflow:hidden">
+    <div data-impactgrid style="max-width:1320px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(48px,7vw,90px);align-items:center">
+      <div style="flex:1;width:100%;display:flex;flex-direction:column;justify-content:center">
+        <div data-reveal style="opacity:0;transform:translateY(20px);transition:opacity .8s ease,transform .8s ease;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#7CC36B;font-weight:600;margin-bottom:20px">By the numbers</div>
+        <h2 data-tw data-tw-speed="0.012" style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(34px,5.5vw,68px);line-height:1.05;letter-spacing:-1px;margin:0 0 24px;max-width:600px">Small choices,<br><span style="font-style:italic;color:#7CC36B">lasting impact.</span></h2>
+        <p data-tw data-tw-speed="0.008" data-tw-delay="0.1" style="font-size:clamp(15px,1.6vw,18px);line-height:1.7;color:rgba(255,255,255,.5);font-weight:300;max-width:480px;margin:0 0 clamp(40px,5vw,60px)">Every SustainAura liner is engineered to do more with less &mdash; chlorine-free materials, recycled PEVA, and zero toxic additives. A healthier bathroom that never costs the planet.</p>
+        <div data-statgrid style="display:grid;grid-template-columns:repeat(2,max-content);gap:clamp(30px,4vw,44px) clamp(48px,9vw,120px)"><div data-reveal style="opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease"><div data-count data-to="100" data-suffix="%" style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(42px,5vw,58px);line-height:1;color:#fff">0%</div><div style="font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:10px;font-weight:600">Chlorine-free material</div></div><div data-reveal style="opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease"><div data-count data-to="0" data-from="48" data-suffix="" style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(42px,5vw,58px);line-height:1;color:#fff">48</div><div style="font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:10px;font-weight:600">Toxic additives used</div></div><div data-reveal style="opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease"><div data-count data-to="30" data-suffix="%" style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(42px,5vw,58px);line-height:1;color:#fff">0%</div><div style="font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:10px;font-weight:600">Recycled PEVA</div></div><div data-reveal style="opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease"><div data-count data-to="100" data-suffix="%" style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(42px,5vw,58px);line-height:1;color:#fff">0%</div><div style="font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:10px;font-weight:600">PVC-free</div></div><div data-reveal style="opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease"><div data-count data-to="30" data-suffix="-Night" style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(42px,5vw,58px);line-height:1;color:#fff">0-Night</div><div style="font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:10px;font-weight:600">Risk-free trial</div></div></div>
       </div>
-      <div data-reveal data-reveal-delay="100" style="opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease;background:#F7FAFC;padding:46px 32px;text-align:center">
-        <div data-count data-to="0" data-from="48" data-suffix="" style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(56px,7vw,88px);line-height:1;color:#16384A">48</div>
-        <div style="font-size:13px;letter-spacing:1px;color:#51697A;margin-top:12px">Toxic additives used</div>
-      </div>
-      <div data-reveal data-reveal-delay="200" style="opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease;background:#F7FAFC;padding:46px 32px;text-align:center">
-        <div data-count data-to="30" data-suffix="%" style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(56px,7vw,88px);line-height:1;color:#16384A">0%</div>
-        <div style="font-size:13px;letter-spacing:1px;color:#51697A;margin-top:12px">Recycled PEVA</div>
-      </div>
-      <div data-reveal data-reveal-delay="300" style="opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease;background:#F7FAFC;padding:46px 32px;text-align:center">
-        <div data-count data-to="100" data-suffix="%" style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(56px,7vw,88px);line-height:1;color:#16384A">0%</div>
-        <div style="font-size:13px;letter-spacing:1px;color:#51697A;margin-top:12px">PVC-free</div>
+      <div data-impactlogo style="display:flex;justify-content:center;align-items:center;flex-shrink:0;width:100%">
+        <div data-reveal data-grasslogo style="opacity:0;transform:scale(.9);transition:opacity 1s ease,transform 1.1s cubic-bezier(.16,.84,.44,1);width:min(440px,78vw);aspect-ratio:1/1;-webkit-mask-image:url('/SustainAura.png');mask-image:url('/SustainAura.png');-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center">
+          <img src="/grass.jpg" alt="The SustainAura mark, grown from nature" style="width:100%;height:100%;object-fit:cover;display:block;animation:grasssway 11s ease-in-out infinite alternate"/>
+        </div>
       </div>
     </div>
   </section>
@@ -298,6 +302,39 @@ function initThree(container){
   setTimeout(function(){location.href=a.href;},310);
  },false);
  window.addEventListener('pageshow',function(ev){if(ev.persisted)document.body.classList.remove('pg-leaving');});
+})();
+</script>
+<script id="tw-js">
+(function(){
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(!('IntersectionObserver' in window)||reduce) return;
+  document.querySelectorAll('[data-tw]').forEach(function(el){
+    var speed=parseFloat(el.getAttribute('data-tw-speed')||'0.012')*1000;
+    var delay=parseFloat(el.getAttribute('data-tw-delay')||'0')*1000;
+    var chars=[];
+    (function walk(node){
+      Array.prototype.slice.call(node.childNodes).forEach(function(n){
+        if(n.nodeType===3){
+          var txt=n.textContent, frag=document.createDocumentFragment();
+          for(var i=0;i<txt.length;i++){
+            var sp=document.createElement('span'); sp.textContent=txt[i];
+            sp.style.opacity='0'; sp.style.transition='opacity .3s ease';
+            if(txt[i]===' ') sp.style.whiteSpace='pre';
+            frag.appendChild(sp); chars.push(sp);
+          }
+          node.replaceChild(frag,n);
+        } else if(n.nodeType===1 && n.tagName!=='BR'){ walk(n); }
+      });
+    })(el);
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        chars.forEach(function(sp,i){ setTimeout(function(){sp.style.opacity='1';}, delay+i*speed); });
+        io.unobserve(e.target);
+      }});
+    },{rootMargin:'-10px'});
+    io.observe(el);
+    setTimeout(function(){chars.forEach(function(sp){sp.style.opacity='1';});}, delay+chars.length*speed+4000);
+  });
 })();
 </script>
 </body>
