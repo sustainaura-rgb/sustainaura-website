@@ -78,7 +78,7 @@ body.pg-leaving{opacity:0 !important;transition:opacity .32s ease;animation:none
 </style>
 <style id="ct-form-fx">
 [data-input]:focus{box-shadow:0 0 0 3px rgba(79,159,214,.16)}
-.ct-tick{position:absolute;right:16px;top:34px;transform:scale(.5);opacity:0;transition:opacity .3s ease,transform .35s cubic-bezier(.16,.84,.44,1);color:#5BB54A;pointer-events:none;line-height:0}
+.ct-tick{position:absolute;right:16px;top:34px;transform:scale(.5);opacity:0;transition:opacity .3s ease,transform .35s cubic-bezier(.16,.84,.44,1);color:#7CC36B;pointer-events:none;line-height:0}
 .ct-tick.on{opacity:1;transform:scale(1)}
 </style>
 </head>
@@ -218,7 +218,7 @@ body.pg-leaving{opacity:0 !important;transition:opacity .32s ease;animation:none
   </section>
 
   <!-- FOOTER -->
-  <footer style="background:#12303E;color:#D7E9F5;border-top:1px solid rgba(91,181,74,.22);padding:clamp(60px,9vw,100px) clamp(20px,5vw,64px) 40px">
+  <footer style="background:#12303E;color:#D7E9F5;border-top:1px solid rgba(124,181,107,.22);padding:clamp(60px,9vw,100px) clamp(20px,5vw,64px) 40px">
     <div data-foot style="max-width:1320px;margin:0 auto;display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:40px;align-items:flex-start">
       <div>
         <div style="font-family:'Cormorant Garamond',serif;font-size:26px;letter-spacing:4px;margin-bottom:14px;display:flex;align-items:center;gap:10px"><img src="/SustainAura.png" alt="SustainAura" style="width:34px;height:34px;object-fit:contain"/>SustainAura</div>
@@ -258,8 +258,11 @@ var subject='Order help';
 $$('[data-chip]').forEach(function(c){c.addEventListener('click',function(){subject=c.dataset.chip;$$('[data-chip]').forEach(function(o){var on=o===c;o.style.background=on?'#16384A':'transparent';o.style.color=on?'#F7FAFC':'#16384A';o.style.borderColor=on?'#16384A':'rgba(14,38,34,.2)';});});});
 $$('[data-field]').forEach(function(f){var input=$('[data-input]',f),label=$('[data-label]',f);if(!input||!label)return;function up(){label.style.top='8px';label.style.fontSize='11px';label.style.color='#4F9FD6';}function down(){if(!input.value){label.style.top='16px';label.style.fontSize='15px';label.style.color='#6F8A98';}}input.addEventListener('focus',up);input.addEventListener('blur',down);input.addEventListener('input',function(){if(input.value)up();});});
 var form=$('[data-form]'),errEl=$('[data-error]'),success=$('[data-success]'),check=$('[data-checkpath]');
+var API='https://mern-backend-py4u.onrender.com';
+/* warm up the free-tier backend on load so the first real submit isn't a 30s cold start */
+try{fetch(API+'/',{mode:'no-cors',cache:'no-store'}).catch(function(){});}catch(_){}
 function showErr(t){if(errEl){errEl.textContent=t;errEl.style.height='24px';}}
-if(form){form.addEventListener('submit',function(e){e.preventDefault();var inputs=$$('[data-input]',form),name=inputs[0],email=inputs[1],msg=inputs[2];if(!name.value.trim()||!email.value.trim()||!msg.value.trim())return showErr('Please fill in every field before sending.');if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.value))return showErr('That email address does not look right.');if(errEl)errEl.style.height='0px';var btn=$('[data-submit]',form),orig=btn?btn.textContent:'';if(btn){btn.disabled=true;btn.textContent='Sending...';}fetch('https://mern-backend-py4u.onrender.com/submit-form',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name.value.trim(),email:email.value.trim(),inquiryType:subject,inquiry:msg.value.trim()})}).then(function(r){return r.json();}).then(function(data){var ok=!!(data&&data.success&&data.data&&(data.data.emailSent||data.data.savedToDB));if(ok){if(success){success.style.opacity='1';success.style.visibility='visible';}if(check){check.style.animation='none';void check.getBoundingClientRect();check.style.animation='checkdraw .6s ease .15s forwards';}}else{showErr((data&&data.message)||'Could not send right now. Email support@sustainaura.com.');}}).catch(function(){showErr('Network issue. Email support@sustainaura.com directly.');}).then(function(){if(btn){btn.disabled=false;btn.textContent=orig;}});});}
+if(form){form.addEventListener('submit',function(e){e.preventDefault();var inputs=$$('[data-input]',form),name=inputs[0],email=inputs[1],msg=inputs[2];if(!name.value.trim()||!email.value.trim()||!msg.value.trim())return showErr('Please fill in every field before sending.');if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.value))return showErr('That email address does not look right.');if(errEl)errEl.style.height='0px';var btn=$('[data-submit]',form),orig=btn?btn.textContent:'';if(btn){btn.disabled=true;btn.textContent='Sending...';}var t1=setTimeout(function(){if(btn&&btn.disabled)btn.textContent='Still sending...';},6000),t2=setTimeout(function(){if(btn&&btn.disabled)btn.textContent='Waking our server, hang tight...';},14000);function done(){clearTimeout(t1);clearTimeout(t2);if(btn){btn.disabled=false;btn.textContent=orig;}}fetch(API+'/submit-form',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name.value.trim(),email:email.value.trim(),inquiryType:subject,inquiry:msg.value.trim()})}).then(function(r){return r.json();}).then(function(data){var ok=!!(data&&data.success&&data.data&&(data.data.emailSent||data.data.savedToDB));if(ok){if(success){success.style.opacity='1';success.style.visibility='visible';}if(check){check.style.animation='none';void check.getBoundingClientRect();check.style.animation='checkdraw .6s ease .15s forwards';}}else{showErr((data&&data.message)||'Could not send right now. Email support@sustainaura.com.');}}).catch(function(){showErr('Network issue. Email support@sustainaura.com directly.');}).then(done);});}
 var reset=$('[data-reset]');if(reset)reset.addEventListener('click',function(){if(success){success.style.opacity='0';success.style.visibility='hidden';}if(form)$$('[data-input]',form).forEach(function(i){i.value='';});});
 })();
 </script>

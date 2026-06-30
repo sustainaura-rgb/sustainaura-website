@@ -144,7 +144,7 @@ body.pg-leaving{opacity:0 !important;transition:opacity .32s ease;animation:none
       <div data-hero-t style="opacity:0;transform:translateY(20px);margin-top:44px;display:flex;align-items:center;gap:clamp(20px,3.4vw,40px);flex-wrap:wrap;justify-content:center">
         <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:30px;color:#16384A;line-height:1">30%</div><div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#6F8A98;margin-top:5px">Recycled PEVA</div></div>
         <div style="width:1px;height:34px;background:rgba(22,56,74,.16)"></div>
-        <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:30px;color:#16384A;line-height:1">100<span style="color:#5BB54A">%</span></div><div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#6F8A98;margin-top:5px">Chlorine-free</div></div>
+        <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:30px;color:#16384A;line-height:1">100<span style="color:#7CC36B">%</span></div><div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#6F8A98;margin-top:5px">Chlorine-free</div></div>
         <div style="width:1px;height:34px;background:rgba(22,56,74,.16)"></div>
         <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:30px;color:#16384A;line-height:1">100<span style="color:#4F9FD6">%</span></div><div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#6F8A98;margin-top:5px">Non-Toxic</div></div>
       </div>
@@ -236,7 +236,7 @@ body.pg-leaving{opacity:0 !important;transition:opacity .32s ease;animation:none
   </section>
 
   <!-- FOOTER -->
-  <footer style="background:#12303E;color:#D7E9F5;border-top:1px solid rgba(91,181,74,.22);padding:clamp(60px,9vw,100px) clamp(20px,5vw,64px) 40px">
+  <footer style="background:#12303E;color:#D7E9F5;border-top:1px solid rgba(124,181,107,.22);padding:clamp(60px,9vw,100px) clamp(20px,5vw,64px) 40px">
     <div data-foot style="max-width:1320px;margin:0 auto;display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:40px;align-items:flex-start">
       <div>
         <div style="font-family:'Cormorant Garamond',serif;font-size:26px;letter-spacing:4px;margin-bottom:14px;display:flex;align-items:center;gap:10px"><img src="/SustainAura.png" alt="SustainAura" style="width:34px;height:34px;object-fit:contain"/>SustainAura</div>
@@ -290,7 +290,7 @@ function initThree(container){
     var group=new THREE.Group(); scene.add(group);
     group.add(new THREE.Mesh(new THREE.IcosahedronGeometry(1.55,1),new THREE.MeshBasicMaterial({color:0x4F9FD6,wireframe:true,transparent:true,opacity:0.55})));
     group.add(new THREE.Mesh(new THREE.IcosahedronGeometry(1.5,1),new THREE.MeshBasicMaterial({color:0xA6D2EE,transparent:true,opacity:0.16})));
-    group.add(new THREE.Points(new THREE.IcosahedronGeometry(1.72,3),new THREE.PointsMaterial({color:0x5BB54A,size:0.028,transparent:true,opacity:0.85})));
+    group.add(new THREE.Points(new THREE.IcosahedronGeometry(1.72,3),new THREE.PointsMaterial({color:0x7CC36B,size:0.028,transparent:true,opacity:0.85})));
     group.rotation.x=0.3;
     var down=false,lx=0,ly=0,velX=0,velY=0,rotX=0.3,rotY=0,hx=0,hy=0;
     container.addEventListener('mousemove',function(e){if(down)return;var r=container.getBoundingClientRect();hx=(e.clientX-r.left)/r.width-0.5;hy=(e.clientY-r.top)/r.height-0.5;});
